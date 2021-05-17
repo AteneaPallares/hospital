@@ -36,6 +36,8 @@ Vue.component('diagnoseindex-component', require('./components/Diagnoses/index.v
 Vue.component('diagnosecreate-component', require('./components/Diagnoses/create.vue').default);
 Vue.component('areaindex-component', require('./components/Areas/index.vue').default);
 Vue.component('areacreate-component', require('./components/Areas/create.vue').default);
+Vue.component('dashboard-component', require('./components/DashBoard/index.vue').default);
+Vue.component('cardinfo-component', require('./components/DashBoard/cardinf.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

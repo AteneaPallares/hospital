@@ -1,7 +1,18 @@
-Route::get('/areas','App\Http\Controllers\AreaController@index')->name('areas.index');
-Route::get('/areas/all','App\Http\Controllers\AreaController@showall')->name('areas.showall');
-Route::get('/areas/editar/{id}','App\Http\Controllers\AreaController@showedit')->name('areas.edit');
-Route::get('/areas/detalleone/{id}','App\Http\Controllers\AreaController@showone')->name('areas.nuevo');
-Route::get('/areas/agregar','App\Http\Controllers\AreaController@create')->name('areas.create');
-Route::get('/areas/detalle/{id}','App\Http\Controllers\AreaController@show')->name('areas.show');
-Route::apiResource('areas', 'App\Http\Controllers\AreaController');
+$userinfo=[];
+        $help=1;
+        $array = array(0 => 'azul');
+               
+        foreach($patientsall as $element){
+            if($element->roles.length>0){
+            $key = array_search($element->roles[0], $array); // $clave = 2;
+               
+           if($key==false && $element->roles[0]!=null){
+                $userinfo[$element->roles[0]]=1;
+                array_push($array,$element->roles[0]);
+           }else if($element->roles[0]!=null){
+                $help= $userinfo[$element->roles[0]]+1;
+                $userinfo[$element->roles[0]]=$help;
+           }}
+           
+        }
+        

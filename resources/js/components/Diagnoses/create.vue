@@ -58,6 +58,7 @@
                       this.diagnose != null && this.diagnose.patient != null
                     "
                   >
+                  
                     <div class="d-inline col-lg-8 text-left">
                       <div>
                         <label
@@ -133,8 +134,28 @@
                   Información del diagnóstico
                 </h5>
                 <form>
+                  <br/>
                   <div class="row">
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                     <div v-if="number==2" class="col-lg-12 col-md-12 col-xs-12 text-center">
+                      <div class="col-md-6 col-xs-12 col-lg-6 m-auto">
+                        <label><strong>Fecha</strong></label>
+                        
+                        <div >
+                          
+                          <el-date-picker
+                            style="width: 100%"
+                            v-model="diagnose.updated_at"
+                            type="datetime"
+                            placeholder="Seleccionar"
+                            :readonly="number == 2"
+                          >
+                          </el-date-picker>
+                        </div>
+
+                      </div>
+                    </div>
+                   
+                    <div class="d-inline col-lg-6 col-md-6 col-xs-12 mt-4">
                       <div class="form-group">
                         <strong>Paciente</strong
                         ><label class="text-danger" v-if="number != 2">
@@ -159,7 +180,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="d-inline col-lg-6 col-md-6 col-xs-12">
+                    <div class="d-inline col-lg-6 col-md-6 col-xs-12 mt-4">
                       <div class="form-group">
                         <strong>Doctor </strong
                         ><label class="text-danger" v-if="number != 2">

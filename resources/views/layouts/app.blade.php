@@ -18,6 +18,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -46,7 +47,7 @@
                     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                         <div class="container">
                             <a class="navbar-brand" href="{{ url('/') }}">
-                                {{ config('app.name', 'Laravel') }}
+                               Chispots
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -101,7 +102,7 @@
                     </nav>
 
 
-                    <div class="container-fluid">
+                    <div class="container-fluid p-0">
                         @yield('content')
                     </div>
                 </div>

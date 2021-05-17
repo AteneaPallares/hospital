@@ -56,3 +56,6 @@ Route::get('/areas/detalleone/{id}','App\Http\Controllers\AreaController@showone
 Route::get('/areas/agregar','App\Http\Controllers\AreaController@create')->name('areas.create');
 Route::get('/areas/detalle/{id}','App\Http\Controllers\AreaController@show')->name('areas.show');
 Route::apiResource('areas', 'App\Http\Controllers\AreaController');
+
+Route::get('/dashboard','App\Http\Controllers\DashBoardController@index')->name('dashboard.index');
+Route::get('/dashboard/all','App\Http\Controllers\DashBoardController@showall')->name('dashboard.showall');
