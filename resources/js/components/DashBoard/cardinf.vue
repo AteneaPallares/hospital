@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     send(){
-      window.location="/admin/"+this.url+"/";
+      window.location="/"+this.url+"/";
     }
   },
 };

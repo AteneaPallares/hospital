@@ -4175,7 +4175,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     send: function send() {
-      window.location = "/admin/" + this.url + "/";
+      window.location = "/" + this.url + "/";
     }
   }
 });
@@ -4471,10 +4471,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    onClickDetails: function onClickDetails($idy) {
-      var ediId = $idy;
-      window.location.href = "/admin/usuarioscdu/" + ediId + "/"; //this.$emit("details", ediId);
-    }
+    onClickDetails: function onClickDetails($idy) {}
   }
 });
 
@@ -4491,6 +4488,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -4919,9 +4919,9 @@ __webpack_require__.r(__webpack_exports__);
       this.diagnose.id_patient = this.paciente;
       this.diagnose.id_doctor = this.doctor;
       axios.post("/historiales", this.diagnose).then(function (response) {
-        if (_.isNumber(response.data.response)) {
-          _this2.editid = response.data.response;
+        console.log(_this2.diagnose);
 
+        if (_.isNumber(response.data.response)) {
           _this2.showSuccessNotification("Agregando diagnóstico", "Información guardada con éxito");
         } else {
           _this2.showErrorNotification("Agregando diagnóstico", response.data);
@@ -4997,6 +4997,7 @@ __webpack_require__.r(__webpack_exports__);
       Array.from(files).forEach(function (file) {
         return _this4.addImage(file);
       });
+      document.getElementById("customFile").value = "";
     },
     addImage: function addImage(file) {
       var _this5 = this;
@@ -14708,7 +14709,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.dragging[data-v-d3505d7e] {\r\n  opacity: 0.3;\n}\ninput[readonly][data-v-d3505d7e], input[readonly=\"readonly\"][data-v-d3505d7e] {\r\n    background-color: rgb(248, 247, 247);\n}\ntextarea[readonly=\"readonly\"][data-v-d3505d7e], textarea[readonly][data-v-d3505d7e] {\r\nbackground-color: rgb(250, 248, 248);\n}\n.divClass[data-v-d3505d7e] {\r\n  height: 200px;\r\n  overflow-y: scroll;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.dragging[data-v-d3505d7e] {\r\n  opacity: 0.3;\n}\ninput[readonly][data-v-d3505d7e],\r\ninput[readonly=\"readonly\"][data-v-d3505d7e] {\r\n  background-color: rgb(248, 247, 247);\n}\ntextarea[readonly=\"readonly\"][data-v-d3505d7e],\r\ntextarea[readonly][data-v-d3505d7e] {\r\n  background-color: rgb(250, 248, 248);\n}\n.divClass[data-v-d3505d7e] {\r\n  height: 200px;\r\n  overflow-y: scroll;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -107557,126 +107558,143 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v("Archivos")]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _vm.number != 2
-                    ? _c("div", { staticClass: "col-md-6 col-lg-5 m-auto" }, [
-                        _c("div", { staticClass: "input-group" }, [
-                          _c("div", { staticClass: "custom-file" }, [
-                            _c("input", {
-                              staticClass: "custom-file-input",
-                              attrs: {
-                                lang: "es",
-                                type: "file",
-                                enctype: "multipart/form-data",
-                                id: "customFile",
-                                "aria-describedby": "inputGroupFileAddon01"
-                              },
-                              on: { change: _vm.onInputChange }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "label",
-                              {
-                                staticClass: "custom-file-label",
-                                attrs: {
-                                  for: "customFileLangHTML",
-                                  "data-browse": "Buscar"
-                                }
-                              },
-                              [_vm._v("Seleccione")]
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "container divClass border border-dark rounded"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "row",
-                          on: {
-                            dragenter: _vm.OnDragEnter,
-                            dragleave: _vm.OnDragLeave,
-                            dragover: function($event) {
-                              $event.preventDefault()
-                            },
-                            drop: _vm.onDrop
-                          }
-                        },
-                        _vm._l(_vm.files, function(props) {
-                          return _c(
-                            "div",
-                            { key: props.id, staticClass: "col-xs-6 m-3" },
-                            [
-                              _c("img", {
-                                attrs: {
-                                  width: "50px",
-                                  height: "70px",
-                                  src: _vm.getImg(props.name),
-                                  alt: props.name
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href: _vm.geturl(props.ulr_file),
-                                    target: "_blank",
-                                    alt: "hoal"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(_vm.truncate(props.name, 15, "..."))
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
-                              _vm.number != 2
-                                ? _c(
-                                    "el-button",
-                                    {
-                                      attrs: { type: "danger", plain: "" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.deleteImage(props.id)
+                  this.editid != null
+                    ? _c("div", [
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("strong", [_vm._v("Archivos")]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _vm.number != 2
+                          ? _c(
+                              "div",
+                              { staticClass: "col-md-6 col-lg-5 m-auto" },
+                              [
+                                _c("div", { staticClass: "input-group" }, [
+                                  _c("div", { staticClass: "custom-file" }, [
+                                    _c("input", {
+                                      staticClass: "custom-file-input",
+                                      attrs: {
+                                        lang: "es",
+                                        type: "file",
+                                        enctype: "multipart/form-data",
+                                        id: "customFile",
+                                        "aria-describedby":
+                                          "inputGroupFileAddon01"
+                                      },
+                                      on: { change: _vm.onInputChange }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass: "custom-file-label",
+                                        attrs: {
+                                          for: "customFileLangHTML",
+                                          "data-browse": "Buscar"
                                         }
+                                      },
+                                      [_vm._v("Seleccione")]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "container divClass border border-dark rounded"
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "row",
+                                on: {
+                                  dragenter: _vm.OnDragEnter,
+                                  dragleave: _vm.OnDragLeave,
+                                  dragover: function($event) {
+                                    $event.preventDefault()
+                                  },
+                                  drop: _vm.onDrop
+                                }
+                              },
+                              _vm._l(_vm.files, function(props) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: props.id,
+                                    staticClass: "col-xs-6 m-3"
+                                  },
+                                  [
+                                    _c("img", {
+                                      attrs: {
+                                        width: "50px",
+                                        height: "70px",
+                                        src: _vm.getImg(props.name),
+                                        alt: props.name
                                       }
-                                    },
-                                    [_vm._v("Eliminar")]
-                                  )
-                                : _vm._e()
-                            ],
-                            1
-                          )
-                        }),
-                        0
-                      )
-                    ]
-                  )
+                                    }),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: _vm.geturl(props.ulr_file),
+                                          target: "_blank",
+                                          alt: "hoal"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.truncate(props.name, 15, "...")
+                                          )
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _vm.number != 2
+                                      ? _c(
+                                          "el-button",
+                                          {
+                                            attrs: {
+                                              type: "danger",
+                                              plain: ""
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteImage(props.id)
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("Eliminar")]
+                                        )
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e()
                 ])
               ])
             ])

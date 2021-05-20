@@ -10,8 +10,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    
+    <title>Chispots</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -77,7 +78,11 @@
                                     </li>
                                     @endif
                                     @else
+                                    <a id="navbarDropdown" class="nav-link" href="/dashboard/"  aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->getrole() }}
+                                        </a>
                                     <li class="nav-item dropdown">
+                                    
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->name }}

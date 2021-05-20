@@ -83,4 +83,10 @@ class User extends Model implements AuthenticatableContract
         }
         return false;
     }
+	public function getrole()
+    {
+        $val=$this->roles()->first();
+		return $val->name;
+    }
+
 }

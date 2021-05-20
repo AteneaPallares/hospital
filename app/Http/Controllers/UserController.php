@@ -20,7 +20,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function actual(){
-        return auth()->user();
+        $user=auth()->user();
+        $user->roles;
+        return $user;
     }
     public function index()
     {

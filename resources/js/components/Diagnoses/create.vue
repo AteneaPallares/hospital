@@ -264,66 +264,69 @@
                     ></textarea>
                   </div>
                 </form>
-                <br/>
-                <strong>Archivos</strong>
-                <br/>
-                <br/>
-                <div class="col-md-6 col-lg-5 m-auto" v-if="number!=2">
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input
-                        lang="es"
-                        class="custom-file-input"
-                        type="file"
-                        enctype="multipart/form-data"
-                        @change="onInputChange"
-                        id="customFile"
-                        aria-describedby="inputGroupFileAddon01"
-                      />
-                      <label
-                        class="custom-file-label"
-                        for="customFileLangHTML"
-                        data-browse="Buscar"
-                        >Seleccione</label
-                      >
+                <div v-if="this.editid!=null">
+                  <br />
+                  <strong>Archivos</strong>
+                  <br />
+                  <br />
+                  <div class="col-md-6 col-lg-5 m-auto" v-if="number != 2">
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input
+                          lang="es"
+                          class="custom-file-input"
+                          type="file"
+                          enctype="multipart/form-data"
+                          @change="onInputChange"
+                          id="customFile"
+                          aria-describedby="inputGroupFileAddon01"
+                        />
+                        <label
+                          class="custom-file-label"
+                          for="customFileLangHTML"
+                          data-browse="Buscar"
+                          >Seleccione</label
+                        >
+                      </div>
                     </div>
                   </div>
-                </div>
-                <br/>
-                <br/>
-                <div class="container divClass border border-dark rounded">
-                  <div
-                    @dragenter="OnDragEnter"
-                    @dragleave="OnDragLeave"
-                    @dragover.prevent
-                    @drop="onDrop"
-                    class="row"
-                  >
+                  <br />
+                  <br />
+                  <div class="container divClass border border-dark rounded">
                     <div
-                      v-for="props in files"
-                      v-bind:key="props.id"
-                      class="col-xs-6 m-3"
+                      @dragenter="OnDragEnter"
+                      @dragleave="OnDragLeave"
+                      @dragover.prevent
+                      @drop="onDrop"
+                      class="row"
                     >
-                      <img
-                        width="50px"
-                        height="70px"
-                        :src="getImg(props.name)"
-                        :alt="props.name"
-                      />
-                      <br />
-                      <a
-                        :href="geturl(props.ulr_file)"
-                        target="_blank"
-                        alt="hoal"
-                        >{{ truncate(props.name, 15, "...") }}</a
+                      <div
+                        v-for="props in files"
+                        v-bind:key="props.id"
+                        class="col-xs-6 m-3"
                       >
-                      <br />
-                      <el-button v-if="number!=2"
-                        type="danger"
-                        @click="deleteImage(props.id)"
-                        plain
-                        >Eliminar</el-button
-                      >
+                        <img
+                          width="50px"
+                          height="70px"
+                          :src="getImg(props.name)"
+                          :alt="props.name"
+                        />
+                        <br />
+                        <a
+                          :href="geturl(props.ulr_file)"
+                          target="_blank"
+                          alt="hoal"
+                          >{{ truncate(props.name, 15, "...") }}</a
+                        >
+                        <br />
+                        <el-button
+                          v-if="number != 2"
+                          type="danger"
+                          @click="deleteImage(props.id)"
+                          plain
+                          >Eliminar</el-button
+                        >
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -423,8 +426,8 @@ export default {
       this.diagnose.id_patient = this.paciente;
       this.diagnose.id_doctor = this.doctor;
       axios.post("/historiales", this.diagnose).then((response) => {
+        console.log(this.diagnose);
         if (_.isNumber(response.data.response)) {
-          this.editid = response.data.response;
           this.showSuccessNotification(
             "Agregando diagnóstico",
             "Información guardada con éxito"
@@ -493,6 +496,7 @@ export default {
     onInputChange(e) {
       const files = e.target.files;
       Array.from(files).forEach((file) => this.addImage(file));
+      document.getElementById("customFile").value = "";
     },
     addImage(file) {
       const params = new FormData();
@@ -589,11 +593,13 @@ export default {
 .dragging {
   opacity: 0.3;
 }
-input[readonly], input[readonly="readonly"] {
-    background-color: rgb(248, 247, 247);
+input[readonly],
+input[readonly="readonly"] {
+  background-color: rgb(248, 247, 247);
 }
-textarea[readonly="readonly"], textarea[readonly] {
-background-color: rgb(250, 248, 248);
+textarea[readonly="readonly"],
+textarea[readonly] {
+  background-color: rgb(250, 248, 248);
 }
 .divClass {
   height: 200px;

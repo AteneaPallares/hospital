@@ -276,9 +276,6 @@ export default {
       });
     },
     onClickDetails($idy) {
-      const ediId = $idy;
-      window.location.href = "/admin/usuarioscdu/" + ediId + "/";
-      //this.$emit("details", ediId);
     },
   },
 };
