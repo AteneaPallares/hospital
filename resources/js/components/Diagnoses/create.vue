@@ -13,7 +13,7 @@
             <div class="card shadow h-100">
               <div class="card-header">
                 <h5
-                  v-if="number == 0 || number==3"
+                  v-if="number == 0 || number == 3"
                   class="text-primary m-0 font-weight-bold"
                 >
                   Registro de diagnóstico
@@ -32,7 +32,10 @@
                 </h5>
               </div>
               <div class="card-body">
-                <h5 v-if="number!=0" class="text-primary m-0 font-weight-bold">
+                <h5
+                  v-if="number != 0"
+                  class="text-primary m-0 font-weight-bold"
+                >
                   Información del paciente
                 </h5>
                 <div class="row" v-if="number != 0">
@@ -42,15 +45,21 @@
                         >Ver paciente</el-button
                       >
                     </div>
-                    <br/>
-                    <div><img id="pic" class="rounded-circle" height="200" width="200" /></div>
-                    <br/>
+                    <br />
+                    <div>
+                      <img
+                        id="pic"
+                        class="rounded-circle"
+                        height="200"
+                        width="200"
+                      />
+                    </div>
+                    <br />
                     <div>
                       <el-button type="warning" @click="goedit()" plain
                         >Editar paciente</el-button
                       >
                     </div>
-                    
                   </div>
                   <div
                     class="d-inline col-lg-8"
@@ -58,7 +67,6 @@
                       this.diagnose != null && this.diagnose.patient != null
                     "
                   >
-                  
                     <div class="d-inline col-lg-8 text-left">
                       <div>
                         <label
@@ -66,7 +74,7 @@
                           >{{ this.diagnose.patient.name }}</label
                         >
                       </div>
-<div>
+                      <div>
                         <label
                           ><strong>Dirección: </strong
                           >{{ this.diagnose.patient.address }}</label
@@ -111,17 +119,21 @@
                     </div>
                   </div>
                 </div>
-                <hr v-if="number!=0" />
+                <hr v-if="number != 0" />
 
                 <div class="m-2" v-show="number != 2">
                   <el-button
-                    v-if="number ==1"
+                    v-if="number == 1"
                     type="success"
                     @click="edit()"
                     plain
                     >Guardar todo</el-button
                   >
-                  <el-button v-show="number ==0 ||number==3" type="success" @click="edit()" plain
+                  <el-button
+                    v-show="number == 0 || number == 3"
+                    type="success"
+                    @click="edit()"
+                    plain
                     >Registrar diagnóstico</el-button
                   >
                 </div>
@@ -130,18 +142,23 @@
                     >Editar</el-button
                   >
                 </div>
-                <h5 v-if="number!=0" class="text-primary m-0 font-weight-bold">
+                <h5
+                  v-if="number != 0"
+                  class="text-primary m-0 font-weight-bold"
+                >
                   Información del diagnóstico
                 </h5>
                 <form>
-                  <br/>
+                  <br />
                   <div class="row">
-                     <div v-if="number==2" class="col-lg-12 col-md-12 col-xs-12 text-center">
+                    <div
+                      v-if="number == 2"
+                      class="col-lg-12 col-md-12 col-xs-12 text-center"
+                    >
                       <div class="col-md-6 col-xs-12 col-lg-6 m-auto">
                         <label><strong>Fecha</strong></label>
-                        
-                        <div >
-                          
+
+                        <div>
                           <el-date-picker
                             style="width: 100%"
                             v-model="diagnose.updated_at"
@@ -151,10 +168,9 @@
                           >
                           </el-date-picker>
                         </div>
-
                       </div>
                     </div>
-                   
+
                     <div class="d-inline col-lg-6 col-md-6 col-xs-12 mt-4">
                       <div class="form-group">
                         <strong>Paciente</strong
@@ -167,7 +183,7 @@
                             v-model="paciente"
                             filterable
                             placeholder="Seleccione"
-                            :disabled="number == 2 || number==3"
+                            :disabled="number == 2 || number == 3"
                           >
                             <el-option
                               v-for="item in pacientes"
@@ -213,7 +229,6 @@
                     <textarea
                       :readonly="number == 2"
                       class="form-control"
-                      id="exampleFormControlTextarea4"
                       rows="4"
                       v-model="diagnose.disease"
                     ></textarea>
@@ -224,7 +239,6 @@
                     <textarea
                       :readonly="number == 2"
                       class="form-control"
-                      id="exampleFormControlTextarea4"
                       rows="8"
                       v-model="diagnose.description"
                     ></textarea>
@@ -235,7 +249,6 @@
                     <textarea
                       :readonly="number == 2"
                       class="form-control"
-                      id="exampleFormControlTextarea4"
                       rows="8"
                       v-model="diagnose.drugs"
                     ></textarea>
@@ -246,12 +259,74 @@
                     <textarea
                       :readonly="number == 2"
                       class="form-control"
-                      id="exampleFormControlTextarea4"
                       rows="5"
                       v-model="diagnose.notes"
                     ></textarea>
                   </div>
                 </form>
+                <br/>
+                <strong>Archivos</strong>
+                <br/>
+                <br/>
+                <div class="col-md-6 col-lg-5 m-auto" v-if="number!=2">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input
+                        lang="es"
+                        class="custom-file-input"
+                        type="file"
+                        enctype="multipart/form-data"
+                        @change="onInputChange"
+                        id="customFile"
+                        aria-describedby="inputGroupFileAddon01"
+                      />
+                      <label
+                        class="custom-file-label"
+                        for="customFileLangHTML"
+                        data-browse="Buscar"
+                        >Seleccione</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="container divClass border border-dark rounded">
+                  <div
+                    @dragenter="OnDragEnter"
+                    @dragleave="OnDragLeave"
+                    @dragover.prevent
+                    @drop="onDrop"
+                    class="row"
+                  >
+                    <div
+                      v-for="props in files"
+                      v-bind:key="props.id"
+                      class="col-xs-6 m-3"
+                    >
+                      <img
+                        width="50px"
+                        height="70px"
+                        :src="getImg(props.name)"
+                        :alt="props.name"
+                      />
+                      <br />
+                      <a
+                        :href="geturl(props.ulr_file)"
+                        target="_blank"
+                        alt="hoal"
+                        >{{ truncate(props.name, 15, "...") }}</a
+                      >
+                      <br />
+                      <el-button v-if="number!=2"
+                        type="danger"
+                        @click="deleteImage(props.id)"
+                        plain
+                        >Eliminar</el-button
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -273,6 +348,11 @@ export default {
       doctor: null,
       pacientes: [],
       doctores: [],
+      files: [],
+      array: [],
+      isDragging: false,
+      dragCount: 0,
+      images: [],
       loggeduser: [],
       diagnose: {
         id: null,
@@ -301,10 +381,10 @@ export default {
       this.doctor = this.loggeduser.id;
       console.log(this.doctor);
     });
-if (this.number==3) {
+    if (this.number == 3) {
       axios.get(`/pacientes/detalleone/${this.editid}`).then((response) => {
         this.diagnose.patient = response.data;
-        
+
         if (this.diagnose.patient.image == null) {
           document.getElementById("pic").src = "../../../../storage/drop.png";
         } else {
@@ -314,10 +394,10 @@ if (this.number==3) {
         this.paciente = this.editid;
       });
     }
-    if (this.number != 0 && this.number!=3) {
+    if (this.number != 0 && this.number != 3) {
       axios.get(`/historiales/detalleone/${this.editid}`).then((response) => {
         this.diagnose = response.data;
-        
+        this.files = this.diagnose.files;
         if (this.diagnose.patient.image == null) {
           document.getElementById("pic").src = "../../../../storage/drop.png";
         } else {
@@ -326,7 +406,7 @@ if (this.number==3) {
         }
         this.doctor = this.diagnose.id_doctor;
         this.paciente = this.diagnose.id_patient;
-        
+
         console.log(this.diagnose);
       });
     }
@@ -387,45 +467,130 @@ if (this.number==3) {
     goedit() {
       window.location = "/pacientes/editar/" + this.diagnose.patient.id;
     },
+    geturl(dat) {
+      return "../../../../storage/" + dat;
+    },
+    OnDragEnter(e) {
+      e.preventDefault();
+      this.dragCount++;
+      this.isDragging = true;
+    },
+    OnDragLeave(e) {
+      e.preventDefault();
+      this.dragCount--;
+      if (this.dragCount <= 0) {
+        this.isDragging = false;
+      }
+    },
+    onDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.dragCount = 0;
+      this.isDragging = false;
+      const files = e.dataTransfer.files;
+      Array.from(files).forEach((file) => this.addImage(file));
+    },
+    onInputChange(e) {
+      const files = e.target.files;
+      Array.from(files).forEach((file) => this.addImage(file));
+    },
+    addImage(file) {
+      const params = new FormData();
+      params.append("imagen", file);
+      params.append("diagnose", this.editid);
+      axios.post("/archivos", params).then((response) => {
+        console.log(response.data);
+        if (_.isNumber(response.data)) {
+          this.showSuccessNotification(
+            "Agregando archivo",
+            "Archivo guardado con éxito"
+          );
+          axios
+            .get(`/historiales/detalleone/${this.editid}`)
+            .then((response) => {
+              this.files = response.data.files;
+            });
+        } else {
+          this.showErrorNotification(
+            "Agregando archivo",
+            "Archivo demasiado pesado"
+          );
+        }
+      });
+    },
+    deleteImage($idc) {
+      this.$confirm("Realmente desea eliminar el archivo", "Alerta", {
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+        type: "warning",
+      })
+        .then(() => {
+          axios
+            .delete(`/archivos/${$idc}`)
+            .then((response) => {
+              if (response.data != 1) {
+                this.showErrorNotification(
+                  "Error al eliminar",
+                  "Revise la conexión"
+                );
+              } else {
+                this.showSuccessNotification("Eliminar", "Archivo eliminado");
+                axios
+                  .get(`/historiales/detalleone/${this.editid}`)
+                  .then((response) => {
+                    this.files = response.data.files;
+                  });
+              }
+            })
+            .catch((error) => {
+              this.showErrorNotification(
+                "Error al eliminar",
+                "Conexión inválida"
+              );
+              console.log(error);
+            });
+        })
+        .catch(() => {
+          this.$notify({
+            type: "info",
+            title: "Eliminación cancelada",
+            message: "La eliminación ha sido cancelada",
+          });
+        });
+    },
+    truncate: function (text, length, suffix) {
+      if (text.length > length) {
+        return text.substring(0, length) + suffix;
+      } else {
+        return text;
+      }
+    },
+    getImg(name) {
+      let substrings = name.split(".");
+      console.log(substrings);
+      if (substrings[1] == "pdf") {
+        return "../../../../storage/pdf.jpg";
+      }
+      if (substrings[1] == "docx" || substrings[1] == "doc") {
+        return "../../../../storage/doc.jpg";
+      }
+      if (substrings[1] == "png" || substrings[1] == "jpg") {
+        return "../../../../storage/img.jpg";
+      }
+      if (substrings[1] == "mp3" || substrings[1] == "m4a") {
+        return "../../../../storage/mp3.jpg";
+      }
+      return "../../../../storage/all.jpg";
+    },
   },
 };
 </script>
 <style scoped>
-.lbl {
-  border: 0;
-  outline: 0;
-  width: 100%;
-  border-bottom: 1px solid black;
-}
 .dragging {
   opacity: 0.3;
 }
-label.label input[type="file"] {
-  position: absolute;
-  top: -1000px;
-}
-label.label input[type="button"] {
-  position: absolute;
-  top: -1000px;
-}
-.label {
-  cursor: pointer;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  padding: 5px 15px;
-  background: white;
-  display: inline-block;
-}
-.label:hover {
-  background: rgb(202, 201, 201);
-}
-.label:active {
-  background: #9fa1a0;
-}
-.label:invalid + span {
-  color: #000000;
-}
-.label:valid + span {
-  color: #ffffff;
+.divClass {
+  height: 200px;
+  overflow-y: scroll;
 }
 </style>

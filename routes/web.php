@@ -59,3 +59,5 @@ Route::apiResource('areas', 'App\Http\Controllers\AreaController');
 
 Route::get('/dashboard','App\Http\Controllers\DashBoardController@index')->name('dashboard.index');
 Route::get('/dashboard/all','App\Http\Controllers\DashBoardController@showall')->name('dashboard.showall');
+
+Route::apiResource('archivos', 'App\Http\Controllers\FileController');

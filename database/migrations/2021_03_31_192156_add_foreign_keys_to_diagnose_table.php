@@ -14,8 +14,8 @@ class AddForeignKeysToDiagnoseTable extends Migration
     public function up()
     {
         Schema::table('diagnose', function (Blueprint $table) {
-            $table->foreign('id_doctor', 'fk_id_doctor_diagnose')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-            $table->foreign('id_patient', 'fk_id_patient_diagnose')->references('id')->on('patient')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('id_doctor', 'fk_id_doctor_diagnose')->references('id')->on('users')->onDelete('RESTRICT');
+            $table->foreign('id_patient', 'fk_id_patient_diagnose')->references('id')->on('patient')->onDelete('RESTRICT');
         });
     }
 

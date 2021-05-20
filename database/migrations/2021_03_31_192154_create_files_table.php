@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_diagnose')->index('fk_id_files_diagnose');
             $table->string('ulr_file', 200)->nullable();
+            $table->string('name', 200)->nullable();
             $table->timestamps();
         });
     }

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Diagnose;
-class DiagnoseController extends Controller
+use App\Models\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\RedirectResponse;
+class FileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,12 +18,8 @@ class DiagnoseController extends Controller
     public function index()
     {
         //
-        return view('diagnoses.index');
     }
-    public function showall()
-    {
-        return Diagnose::with('patient','files')->get();
-    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -32,7 +28,6 @@ class DiagnoseController extends Controller
     public function create()
     {
         //
-        return view('diagnoses.create');
     }
 
     /**
@@ -41,37 +36,26 @@ class DiagnoseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function patient($id){
-        $detailId=$id;
-        $params = [
-            'detailN' => $detailId
-        ];     
-        return view('diagnoses/adding',$params);
-    }
-
     public function store(Request $request)
     {
-        //
         try{
-            $diagnose=[];
-            if($request->id==null){
-                $diagnose=new Diagnose();
-            }else{
-                $diagnose = Diagnose:: findOrFail($request -> id);
+            if ($request -> hasFile('imagen')) {
+                $file = new File();
+                $path = Storage::putFile('public', $request->file('imagen'));
+                $file->name=$request->imagen->getClientOriginalName();
+                $ur = (string)$request -> imagen-> hashName();
+                $file -> ulr_file=$ur;
+                $file->id_diagnose=$request->diagnose;
+                DB::beginTransaction();
+                DB::commit();
+                $file -> save();
+                return 1;
             }
-            $diagnose->id_patient=$request->id_patient;
-            $diagnose->id_doctor=$request->id_doctor;
-            $diagnose->disease=$request->disease;
-            $diagnose->description=$request->description;
-            $diagnose->weight=$request->weight;
-            $diagnose->notes=$request->notes;
-            $diagnose->drugs=$request->drugs;
-            $diagnose->save();
-            return ['response'=>$diagnose->id];
         }
         catch(\Exception $exception){
             return $exception;
         }
+        return "Error";
     }
 
     /**
@@ -80,19 +64,9 @@ class DiagnoseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showone($id){
-        $diagnose=Diagnose::with("patient","files")->findOrFail($id);
-        return $diagnose;
-    }
-
     public function show($id)
     {
         //
-        $detailId=$id;
-        $params = [
-            'detailN' => $detailId
-        ];     
-        return view('diagnoses/detail',$params);
     }
 
     /**
@@ -113,17 +87,6 @@ class DiagnoseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showedit($id)
-    {
-        //
-        $detailId=$id;
-        $params = [
-            'detailN' => $detailId
-        ];     
-        return view('diagnoses/edit',$params);
-
-    }
-
     public function update(Request $request, $id)
     {
         //
@@ -137,11 +100,13 @@ class DiagnoseController extends Controller
      */
     public function destroy($id)
     {
-        //
         if(request()->isMethod("DELETE")){
             try{
-                $diagnose=Diagnose::findOrFail($id);
-                $diagnose->delete();
+                $file=File::findOrFail($id);
+                if ($file -> image != null) {
+                    Storage:: delete ('public/'.$file -> ulr_file);
+                }
+                $file->delete();
                 return 1;
             }catch(\Illuminate\Database\QueryException $e){
                 return 0;

@@ -196,6 +196,9 @@ class UserController extends Controller
         if(request()->isMethod("DELETE")){
             try{
                 $user=User::findOrFail($id);
+                if ($user -> image != null) {
+                    Storage:: delete ('public/'.$user -> image);
+                }
                 $user->delete();
                 return 1;
             }catch(\Illuminate\Database\QueryException $e){

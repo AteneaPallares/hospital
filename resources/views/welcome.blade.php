@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Chispots</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -24,6 +24,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet" />
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
 </head>
 
 <body>
@@ -61,10 +68,14 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/dashboard/" >
+                               Home
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Cerrar sesión
                             </a>
+                            
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -77,9 +88,6 @@
         </div>
     </nav>
 
-
-
-    <!-- Masthead-->
     <header class="masthead text-white text-center">
         <div class="overlay"></div>
         <div class="container">
@@ -126,64 +134,73 @@
             <div class="row no-gutters">
                 <div class="col-lg-12 text-center  order-lg-2 text-dark ">
                     <h3>Equipos especializados</h3>
-                    <div class="carousel-indicators">
-                        <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0"
-                            class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="2"
-                            aria-label="Slide 3"></button>
+                    <!-- Carousel wrapper -->
+                    <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+                        <!-- Indicators -->
+                        <div class="carousel-indicators">
+                            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="1"
+                                aria-label="Slide 2"></button>
+                            <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        </div>
+
+                        <!-- Inner -->
+                        <div class="carousel-inner">
+                            <!-- Single item -->
+                            <div class="carousel-item active" data-mdb-interval="5000">
+                                <img src="assets/slide2.png"
+                                    class="d-block w-100" alt="..." />
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Áreas</h5>
+                                    <p>Contamos con áreas de calidad, limpias y con mantenimiento constante.</p>
+                                </div>
+                            </div>
+
+                            <!-- Single item -->
+                            <div class="carousel-item" data-mdb-interval="5000">
+                                <img 
+                                src="assets/slide2.png"
+                                class="d-block w-100" alt="..." />
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Radiografías</h5>
+                                    <p>Contamos con los mejores equipos para la generación y revisión de exámenes,
+                                        radiografías, etc</p>
+                                </div>
+                            </div>
+
+                            <!-- Single item -->
+                            <div class="carousel-item" data-mdb-interval="5000">
+                                <img src="assets/slide2.png"
+                                class="d-block w-100" alt="..." />
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Personal médico</h5>
+                                    <p>Nuestro personal médico se encuentra capacitado para realizar un trabajo efectivo para el paciente.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Inner -->
+
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+                            data-mdb-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+                            data-mdb-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
+                    <!-- Carousel wrapper -->
 
-                    <!-- Inner -->
-                    <div class="carousel-inner">
-                        <!-- Single item -->
-                        <div class="carousel-item active">
-                            <img height="500px" src="https://www.hospitalsanfernando.com/www/sites/default/files/styles/large/public/img/img_7296.jpg?itok=nn3B6P8q" class="d-block w-100"
-                                alt="..." />
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Radiografías</h5>
-                                <p>Contamos con los mejores equipos para la generación y revisión de exámenes,
-                                    radiografías, etc</p>
-                            </div>
-                        </div>
+                    <!-- Masthead-->
 
-                        <!-- Single item -->
-                        <div class="carousel-item">
-                            <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg" class="d-block w-100"
-                                alt="..." />
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
 
-                        <!-- Single item -->
-                        <div class="carousel-item">
-                            <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg" class="d-block w-100"
-                                alt="..." />
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Inner -->
-
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
-                        data-mdb-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
-                        data-mdb-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <section class="showcase">
@@ -209,8 +226,8 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
-                
-                
+
+
             </div>
         </div>
     </section>
@@ -226,7 +243,7 @@
                         <li class="list-inline-item">⋅</li>
                         <li class="list-inline-item"><a href="#!">Terminos de uso</a></li>
                         <li class="list-inline-item">⋅</li>
-                      </ul>
+                    </ul>
                     <p class="text-muted small mb-4 mb-lg-0">© Chispots 2021. All Rights Reserved.</p>
                 </div>
                 <div class="col-lg-6 h-100 text-center text-lg-right my-auto">

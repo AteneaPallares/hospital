@@ -4753,6 +4753,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "detailsid"],
   data: function data() {
@@ -4765,6 +4840,11 @@ __webpack_require__.r(__webpack_exports__);
       doctor: null,
       pacientes: [],
       doctores: [],
+      files: [],
+      array: [],
+      isDragging: false,
+      dragCount: 0,
+      images: [],
       loggeduser: [],
       diagnose: {
         id: null,
@@ -4813,6 +4893,7 @@ __webpack_require__.r(__webpack_exports__);
     if (this.number != 0 && this.number != 3) {
       axios.get("/historiales/detalleone/".concat(this.editid)).then(function (response) {
         _this.diagnose = response.data;
+        _this.files = _this.diagnose.files;
 
         if (_this.diagnose.patient.image == null) {
           document.getElementById("pic").src = "../../../../storage/drop.png";
@@ -4880,6 +4961,122 @@ __webpack_require__.r(__webpack_exports__);
     },
     goedit: function goedit() {
       window.location = "/pacientes/editar/" + this.diagnose.patient.id;
+    },
+    geturl: function geturl(dat) {
+      return "../../../../storage/" + dat;
+    },
+    OnDragEnter: function OnDragEnter(e) {
+      e.preventDefault();
+      this.dragCount++;
+      this.isDragging = true;
+    },
+    OnDragLeave: function OnDragLeave(e) {
+      e.preventDefault();
+      this.dragCount--;
+
+      if (this.dragCount <= 0) {
+        this.isDragging = false;
+      }
+    },
+    onDrop: function onDrop(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      e.stopPropagation();
+      this.dragCount = 0;
+      this.isDragging = false;
+      var files = e.dataTransfer.files;
+      Array.from(files).forEach(function (file) {
+        return _this3.addImage(file);
+      });
+    },
+    onInputChange: function onInputChange(e) {
+      var _this4 = this;
+
+      var files = e.target.files;
+      Array.from(files).forEach(function (file) {
+        return _this4.addImage(file);
+      });
+    },
+    addImage: function addImage(file) {
+      var _this5 = this;
+
+      var params = new FormData();
+      params.append("imagen", file);
+      params.append("diagnose", this.editid);
+      axios.post("/archivos", params).then(function (response) {
+        console.log(response.data);
+
+        if (_.isNumber(response.data)) {
+          _this5.showSuccessNotification("Agregando archivo", "Archivo guardado con éxito");
+
+          axios.get("/historiales/detalleone/".concat(_this5.editid)).then(function (response) {
+            _this5.files = response.data.files;
+          });
+        } else {
+          _this5.showErrorNotification("Agregando archivo", "Archivo demasiado pesado");
+        }
+      });
+    },
+    deleteImage: function deleteImage($idc) {
+      var _this6 = this;
+
+      this.$confirm("Realmente desea eliminar el archivo", "Alerta", {
+        confirmButtonText: "Continuar",
+        cancelButtonText: "Cancelar",
+        type: "warning"
+      }).then(function () {
+        axios["delete"]("/archivos/".concat($idc)).then(function (response) {
+          if (response.data != 1) {
+            _this6.showErrorNotification("Error al eliminar", "Revise la conexión");
+          } else {
+            _this6.showSuccessNotification("Eliminar", "Archivo eliminado");
+
+            axios.get("/historiales/detalleone/".concat(_this6.editid)).then(function (response) {
+              _this6.files = response.data.files;
+            });
+          }
+        })["catch"](function (error) {
+          _this6.showErrorNotification("Error al eliminar", "Conexión inválida");
+
+          console.log(error);
+        });
+      })["catch"](function () {
+        _this6.$notify({
+          type: "info",
+          title: "Eliminación cancelada",
+          message: "La eliminación ha sido cancelada"
+        });
+      });
+    },
+    truncate: function truncate(text, length, suffix) {
+      if (text.length > length) {
+        return text.substring(0, length) + suffix;
+      } else {
+        return text;
+      }
+    },
+    getImg: function getImg(name) {
+      var substrings = name.split(".");
+      console.log(substrings);
+
+      if (substrings[1] == "pdf") {
+        return "../../../../storage/pdf.jpg";
+      }
+
+      if (substrings[1] == "docx" || substrings[1] == "doc") {
+        return "../../../../storage/doc.jpg";
+      }
+
+      if (substrings[1] == "png" || substrings[1] == "jpg") {
+        return "../../../../storage/img.jpg";
+      }
+
+      if (substrings[1] == "mp3" || substrings[1] == "m4a") {
+        return "../../../../storage/mp3.jpg";
+      }
+
+      return "../../../../storage/all.jpg";
     }
   }
 });
@@ -5817,8 +6014,8 @@ __webpack_require__.r(__webpack_exports__);
         value: "Muerto",
         label: "Muerto"
       }, {
-        value: "Vivo",
-        label: "Vivo"
+        value: "En Tratamiento",
+        label: "En Tratamiento"
       }, {
         value: "Dado de alta",
         label: "Dado de alta"
@@ -14511,7 +14708,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.lbl[data-v-d3505d7e] {\r\n  border: 0;\r\n  outline: 0;\r\n  width: 100%;\r\n  border-bottom: 1px solid black;\n}\n.dragging[data-v-d3505d7e] {\r\n  opacity: 0.3;\n}\nlabel.label input[type=\"file\"][data-v-d3505d7e] {\r\n  position: absolute;\r\n  top: -1000px;\n}\nlabel.label input[type=\"button\"][data-v-d3505d7e] {\r\n  position: absolute;\r\n  top: -1000px;\n}\n.label[data-v-d3505d7e] {\r\n  cursor: pointer;\r\n  border: 1px solid #cccccc;\r\n  border-radius: 5px;\r\n  padding: 5px 15px;\r\n  background: white;\r\n  display: inline-block;\n}\n.label[data-v-d3505d7e]:hover {\r\n  background: rgb(202, 201, 201);\n}\n.label[data-v-d3505d7e]:active {\r\n  background: #9fa1a0;\n}\n.label:invalid + span[data-v-d3505d7e] {\r\n  color: #000000;\n}\n.label:valid + span[data-v-d3505d7e] {\r\n  color: #ffffff;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.dragging[data-v-d3505d7e] {\r\n  opacity: 0.3;\n}\n.divClass[data-v-d3505d7e] {\r\n  height: 200px;\r\n  overflow-y: scroll;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -106810,7 +107007,7 @@ var render = function() {
                         { staticClass: "text-primary m-0 font-weight-bold" },
                         [
                           _vm._v(
-                            "\n                  Registro de diagnóstico\n                "
+                            "\n                Registro de diagnóstico\n              "
                           )
                         ]
                       )
@@ -106822,7 +107019,7 @@ var render = function() {
                         { staticClass: "text-primary m-0 font-weight-bold" },
                         [
                           _vm._v(
-                            "\n                  Editar diagnóstico\n                "
+                            "\n                Editar diagnóstico\n              "
                           )
                         ]
                       )
@@ -106834,7 +107031,7 @@ var render = function() {
                         { staticClass: "text-primary m-0 font-weight-bold" },
                         [
                           _vm._v(
-                            "\n                  Detalles de diagnóstico\n                "
+                            "\n                Detalles de diagnóstico\n              "
                           )
                         ]
                       )
@@ -106848,7 +107045,7 @@ var render = function() {
                         { staticClass: "text-primary m-0 font-weight-bold" },
                         [
                           _vm._v(
-                            "\n                  Información del paciente\n                "
+                            "\n                Información del paciente\n              "
                           )
                         ]
                       )
@@ -107021,7 +107218,7 @@ var render = function() {
                               name: "show",
                               rawName: "v-show",
                               value: _vm.number == 0 || _vm.number == 3,
-                              expression: "number ==0 ||number==3"
+                              expression: "number == 0 || number == 3"
                             }
                           ],
                           attrs: { type: "success", plain: "" },
@@ -107073,7 +107270,7 @@ var render = function() {
                         { staticClass: "text-primary m-0 font-weight-bold" },
                         [
                           _vm._v(
-                            "\n                  Información del diagnóstico\n                "
+                            "\n                Información del diagnóstico\n              "
                           )
                         ]
                       )
@@ -107142,7 +107339,7 @@ var render = function() {
                             _c("strong", [_vm._v("Paciente")]),
                             _vm.number != 2
                               ? _c("label", { staticClass: "text-danger" }, [
-                                  _vm._v("\n                          *")
+                                  _vm._v("\n                        *")
                                 ])
                               : _vm._e(),
                             _vm._v(" "),
@@ -107196,7 +107393,7 @@ var render = function() {
                             _c("strong", [_vm._v("Doctor ")]),
                             _vm.number != 2
                               ? _c("label", { staticClass: "text-danger" }, [
-                                  _vm._v("\n                          *")
+                                  _vm._v("\n                        *")
                                 ])
                               : _vm._e(),
                             _vm._v(" "),
@@ -107254,11 +107451,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: {
-                          readonly: _vm.number == 2,
-                          id: "exampleFormControlTextarea4",
-                          rows: "4"
-                        },
+                        attrs: { readonly: _vm.number == 2, rows: "4" },
                         domProps: { value: _vm.diagnose.disease },
                         on: {
                           input: function($event) {
@@ -107290,11 +107483,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: {
-                          readonly: _vm.number == 2,
-                          id: "exampleFormControlTextarea4",
-                          rows: "8"
-                        },
+                        attrs: { readonly: _vm.number == 2, rows: "8" },
                         domProps: { value: _vm.diagnose.description },
                         on: {
                           input: function($event) {
@@ -107326,11 +107515,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: {
-                          readonly: _vm.number == 2,
-                          id: "exampleFormControlTextarea4",
-                          rows: "8"
-                        },
+                        attrs: { readonly: _vm.number == 2, rows: "8" },
                         domProps: { value: _vm.diagnose.drugs },
                         on: {
                           input: function($event) {
@@ -107358,11 +107543,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: {
-                          readonly: _vm.number == 2,
-                          id: "exampleFormControlTextarea4",
-                          rows: "5"
-                        },
+                        attrs: { readonly: _vm.number == 2, rows: "5" },
                         domProps: { value: _vm.diagnose.notes },
                         on: {
                           input: function($event) {
@@ -107374,7 +107555,128 @@ var render = function() {
                         }
                       })
                     ])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v("Archivos")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm.number != 2
+                    ? _c("div", { staticClass: "col-md-6 col-lg-5 m-auto" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("div", { staticClass: "custom-file" }, [
+                            _c("input", {
+                              staticClass: "custom-file-input",
+                              attrs: {
+                                lang: "es",
+                                type: "file",
+                                enctype: "multipart/form-data",
+                                id: "customFile",
+                                "aria-describedby": "inputGroupFileAddon01"
+                              },
+                              on: { change: _vm.onInputChange }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "custom-file-label",
+                                attrs: {
+                                  for: "customFileLangHTML",
+                                  "data-browse": "Buscar"
+                                }
+                              },
+                              [_vm._v("Seleccione")]
+                            )
+                          ])
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "container divClass border border-dark rounded"
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "row",
+                          on: {
+                            dragenter: _vm.OnDragEnter,
+                            dragleave: _vm.OnDragLeave,
+                            dragover: function($event) {
+                              $event.preventDefault()
+                            },
+                            drop: _vm.onDrop
+                          }
+                        },
+                        _vm._l(_vm.files, function(props) {
+                          return _c(
+                            "div",
+                            { key: props.id, staticClass: "col-xs-6 m-3" },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  width: "50px",
+                                  height: "70px",
+                                  src: _vm.getImg(props.name),
+                                  alt: props.name
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: _vm.geturl(props.ulr_file),
+                                    target: "_blank",
+                                    alt: "hoal"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.truncate(props.name, 15, "..."))
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _vm.number != 2
+                                ? _c(
+                                    "el-button",
+                                    {
+                                      attrs: { type: "danger", plain: "" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteImage(props.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Eliminar")]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        }),
+                        0
+                      )
+                    ]
+                  )
                 ])
               ])
             ])
@@ -109230,30 +109532,32 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "container-fluid mt-5" }, [
-              _c(
-                "div",
-                { staticClass: "card shadow mb-5", attrs: { id: "" } },
-                [
-                  _c("div", { staticClass: "m-0'" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "card-body" },
-                      [
-                        this.detailsid != null
-                          ? _c("diagnosepatient-component", {
-                              attrs: { detailsid: this.detailsid }
-                            })
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                ]
-              )
-            ])
+            _vm.number != 0
+              ? _c("div", { staticClass: "container-fluid mt-5" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card shadow mb-5", attrs: { id: "" } },
+                    [
+                      _c("div", { staticClass: "m-0'" }, [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [
+                            this.detailsid != null
+                              ? _c("diagnosepatient-component", {
+                                  attrs: { detailsid: this.detailsid }
+                                })
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              : _vm._e()
           ])
         ])
       ]
