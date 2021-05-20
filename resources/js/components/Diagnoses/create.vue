@@ -589,6 +589,12 @@ export default {
 .dragging {
   opacity: 0.3;
 }
+input[readonly], input[readonly="readonly"] {
+    background-color: rgb(248, 247, 247);
+}
+textarea[readonly="readonly"], textarea[readonly] {
+background-color: rgb(250, 248, 248);
+}
 .divClass {
   height: 200px;
   overflow-y: scroll;

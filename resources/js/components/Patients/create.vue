@@ -682,6 +682,12 @@ label.label input[type="button"] {
 .label:invalid + span {
   color: #000000;
 }
+input[readonly], input[readonly="readonly"] {
+    background-color: rgb(248, 247, 247);
+}
+textarea[readonly="readonly"], textarea[readonly] {
+background-color: rgb(248, 247, 247);
+}
 .label:valid + span {
   color: #ffffff;
 }
