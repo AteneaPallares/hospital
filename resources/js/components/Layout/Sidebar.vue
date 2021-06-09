@@ -13,11 +13,14 @@
             ><i class="fas fa-chart-line"></i><span>Dashboard</span></a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/usuarios/"
-            ><i class="fas fa-address-card"></i><span>Usuarios</span></a
-          >
+        
+        <li v-if="userRole == 1 || userRole == 2" class="nav-item">
+            <a class="nav-link" href="/usuarios/"
+              ><i class="fas fa-address-card"></i><span>Usuarios</span></a
+            >
         </li>
+        
+        
         <li class="nav-item">
           <a class="nav-link" href="/pacientes/"
             ><i class="el-icon-user-solid"></i><span>Pacientes</span></a
@@ -44,4 +47,28 @@
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  props: ["detailsid"],
+  data() {
+    return {
+      loggeduser : null, 
+      userRole : 0
+    };
+  },
+  mounted() {
+     axios.get("/usuarios/actual").then((response) => {
+      this.loggeduser = response.data;
+      console.log(response.data);
+      this.userRole = this.loggeduser.roles.length > 0 ? this.loggeduser.roles [0].id : 0;
+      console.log(this.userRole);
+    });
+  },
+  methods: {
+    
+    },
+   
+};
+</script>
 
