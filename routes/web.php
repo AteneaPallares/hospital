@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +49,13 @@ Route::get('/historiales/agregar/{id}','App\Http\Controllers\DiagnoseController@
 Route::get('/historiales/detalle/{id}','App\Http\Controllers\DiagnoseController@show')->name('historiales.show');
 Route::apiResource('historiales', 'App\Http\Controllers\DiagnoseController');
 
+// Cirugias 
+Route::get('/cirugias/add','App\Http\Controllers\CirugiasController@show')->name('Cirugias.Add');
+Route::post('/cirugias/add/post','App\Http\Controllers\CirugiasController@postCirugiasAdd');
+Route::get('/cirugias/{id}/detalle','App\Http\Controllers\CirugiasController@detalle');
+Route::get('cirugias', 'App\Http\Controllers\CirugiasController@index');
+Route::apiResource('cirugias', 'App\Http\Controllers\CirugiasController');
+
 Route::get('/areas','App\Http\Controllers\AreaController@index')->name('areas.index');
 Route::get('/areas/all','App\Http\Controllers\AreaController@showall')->name('areas.showall');
 Route::get('/areas/editar/{id}','App\Http\Controllers\AreaController@showedit')->name('areas.edit');
@@ -61,3 +68,5 @@ Route::get('/dashboard','App\Http\Controllers\DashBoardController@index')->name(
 Route::get('/dashboard/all','App\Http\Controllers\DashBoardController@showall')->name('dashboard.showall');
 
 Route::apiResource('archivos', 'App\Http\Controllers\FileController');
+
+
