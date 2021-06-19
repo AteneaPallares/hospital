@@ -53,6 +53,7 @@ Route::apiResource('historiales', 'App\Http\Controllers\DiagnoseController');
 Route::get('/cirugias/add','App\Http\Controllers\CirugiasController@show')->name('Cirugias.Add');
 Route::post('/cirugias/add/post','App\Http\Controllers\CirugiasController@postCirugiasAdd');
 Route::get('/cirugias/{id}/detalle','App\Http\Controllers\CirugiasController@detalle');
+Route::get('/cirugias/{id}/edit','App\Http\Controllers\CirugiasController@edit');
 Route::get('cirugias', 'App\Http\Controllers\CirugiasController@index');
 Route::apiResource('cirugias', 'App\Http\Controllers\CirugiasController');
 

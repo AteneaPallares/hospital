@@ -26,6 +26,10 @@ class CirugiasController extends Controller
         $cirugias = Cirugy::paginate(25);
         return view('cirugies.index')->with('cirugias',$cirugias);
     }
+    public function edit($id){
+        $cirugia = Cirugy::where('id',$id)->first();
+        return view('cirugies.edit')->with('cirugia',$cirugia);
+    }
 
     public function show(){
         $doctores = User::all();
