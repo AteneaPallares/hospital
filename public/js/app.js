@@ -8227,10 +8227,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.actual >= this.max) this.actual--;
       this.data = this.aux.slice(this.actual * this.pagesize, this.actual * this.pagesize + this.pagesize);
     },
-    onClickDelete: function onClickDelete($idc, $iddel) {
+    onClickDelete: function onClickDelete($idc, $iddel, $userd) {
       var _this3 = this;
 
-      this.$confirm("Realmente desea eliminar al usuario", "Alerta", {
+      this.$confirm("Realmente desea eliminar al usuario " + $userd.name, "Alerta", {
         confirmButtonText: "Continuar",
         cancelButtonText: "Cancelar",
         type: "warning"
@@ -112346,7 +112346,11 @@ var render = function() {
                                     "btn btn-danger m-1 col-xl-3 col-xs-12",
                                   on: {
                                     click: function($event) {
-                                      return _vm.onClickDelete(props.id, index)
+                                      return _vm.onClickDelete(
+                                        props.id,
+                                        index,
+                                        props
+                                      )
                                     }
                                   }
                                 },

@@ -114,7 +114,7 @@
 
                       <button
                         class="btn btn-danger m-1 col-xl-3 col-xs-12"
-                        @click="onClickDelete(props.id, index)"
+                        @click="onClickDelete(props.id, index,props)"
                       >
                         <i class="el-icon-delete"></i>
                       </button>
@@ -393,8 +393,8 @@ export default {
         this.actual * this.pagesize + this.pagesize
       );
     },
-    onClickDelete($idc, $iddel) {
-      this.$confirm("Realmente desea eliminar al usuario", "Alerta", {
+    onClickDelete($idc, $iddel,$userd) {
+      this.$confirm("Realmente desea eliminar al usuario "+$userd.name, "Alerta", {
         confirmButtonText: "Continuar",
         cancelButtonText: "Cancelar",
         type: "warning",
