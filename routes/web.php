@@ -54,6 +54,8 @@ Route::get('/cirugias/add','App\Http\Controllers\CirugiasController@show')->name
 Route::post('/cirugias/add/post','App\Http\Controllers\CirugiasController@postCirugiasAdd');
 Route::get('/cirugias/{id}/detalle','App\Http\Controllers\CirugiasController@detalle');
 Route::get('/cirugias/{id}/edit','App\Http\Controllers\CirugiasController@edit');
+Route::post('/cirugias/edit/{id}','App\Http\Controllers\CirugiasController@postEdit');
+Route::post('/cirugias/{id}/delete','App\Http\Controllers\CirugiasController@delete');
 Route::get('cirugias', 'App\Http\Controllers\CirugiasController@index');
 Route::apiResource('cirugias', 'App\Http\Controllers\CirugiasController');
 

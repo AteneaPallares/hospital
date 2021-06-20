@@ -132,7 +132,7 @@
                   </h5>
 
 
-                <form action="{{ url('cirugias/add/post') }}" method="POST" > @csrf
+                <form action="{{ url('cirugias/edit/'. $cirugia->id) }}" method="POST" > @csrf
                   <input type="submit" class="btn btn-success" value="Editar cirugia">
                   <br />
                   <div class="row">
@@ -153,7 +153,9 @@
                       <div class="form-group">
                         <strong>Paciente</strong><label class="text-danger" >*</label>
                         <select name="paciente" id="paciente">
-                            <option value="{{ $cirugia->id_patient }}">{{ $cirugia->id_patient }}</option>
+                            @foreach ($pacientes as $paciente)
+                            <option value="{{ $paciente->id }}">{{ $paciente->name }}</option>
+                            @endforeach
                          
                       </select>
                        
@@ -164,7 +166,9 @@
                             <strong>Doctor </strong><label class="text-danger" >*</label>
                                
                               <select name="doctor" id="doctor">
-                                <option value="{{ $cirugia->id_doctor }}">{{ $cirugia->id_doctor }}</option>
+                                @foreach ($doctores as $doctor)
+                                  <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                  @endforeach
                                  
                               </select>
                           </div>
@@ -176,13 +180,13 @@
                   <div class="form-group purple-border">
                     <strong>Tipo</strong>
                     <br/>
-                    <input type="text" name="type" id="type" class="form-control">
+                    <input type="text" name="type" id="type" class="form-control" value="{{ $cirugia->type }}">
                   </div>
 
                   <div class="form-group purple-border">
                     <strong>Comentarios</strong>
                     <br />
-                    <input type="text" name="comments" id="comments"class="form-control" rows="8">
+                    <input type="text" name="comments" id="comments"class="form-control" rows="8"  value="{{ $cirugia->comments }}">
                   </div>
                 </form>
 

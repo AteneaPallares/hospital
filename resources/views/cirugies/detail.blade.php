@@ -152,7 +152,7 @@
                       <div class="form-group">
                         <strong>Paciente</strong><label class="text-danger" >*</label>
                         <select name="paciente" id="paciente">
-                          <option value="{{ $cirugia->id_patient }}">{{ $cirugia->id_patient }}</option>
+                          <option value="{{ $cirugia->id_patient }}">{{ $cirugia->patient->name }}</option>
                          
                       </select>
                        
@@ -164,7 +164,7 @@
                                
                               <select name="doctor" id="doctor">
                                  
-                                  <option value="{{ $cirugia->id_doctor }}">{{ $cirugia->id_doctor }}</option>
+                                  <option value="{{ $cirugia->id_doctor }}">{{ $cirugia->user->name }}</option>
                                 
                                  
                               </select>

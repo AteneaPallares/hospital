@@ -49,8 +49,8 @@
                         <tr>
                           <td>{{ $cirugia->id }}</td>
                           <td></td>
-                          <td>{{ $cirugia->id_patient }}</td>
-                          <td>{{ $cirugia->id_doctor }}</td>
+                          <td>{{ $cirugia->patient->name }}</td>
+                          <td>{{ $cirugia->user->name }}</td>
                           <td>{{ $cirugia->dateline }}</td>
                   
                         
@@ -61,10 +61,14 @@
                             </a>
                                 <a href="{{ url('cirugias/'.$cirugia->id.'/edit') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                                     <i class="fas fa-edit"></i>
-                                </a>   
-                                <a href="{{ url('cirugias/'.$cirugia->id.'/delete') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Permisos de usuario">
-                                  <i class="fas fa-trash-alt"></i>
                                 </a> 
+                                <form action="{{ url('cirugias/'.$cirugia->id.'/delete') }}" method="post">
+                                  @csrf
+                                <input type="submit" value="Eliminar">
+                                </form>  
+                                {{-- <a href=" "data-bs-toggle="tooltip" data-bs-placement="top" title="Permisos de usuario">
+                                 
+                                </a>  --}}
                                
                             </div>
                               
@@ -82,41 +86,7 @@
               </div>
                      
               </div>
-              <div class="pagination col-12 p-0">
-                <div class="text-left col-8">
-                  <span class="text-black"
-                    >Mostra</span
-                  >
-                </div>
-                <div class="text-right col-4 p-0">
 
-                  <nav
-                    class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers"
-                  >
-                    <ul class="pagination">
-                      <li class="page-item" v-if="actual + 1 > 1">
-                        <a
-                          class="page-link"
-        
-                          aria-label="Previous"
-                          ><span aria-hidden="true">«</span></a
-                        >
-                      </li>
-                      <li class="page-item disabled" v-else>
-                        <a
-                          class="page-link"
-        
-                          aria-label="Previous"
-                          ><span aria-hidden="true">«</span></a
-                        >
-                      </li>
-                      <li>
-                        
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -23,12 +23,63 @@ class CirugiasController extends Controller
 
     public function index()
     {
-        $cirugias = Cirugy::paginate(25);
+        $cirugias = Cirugy::with("patient","user")->paginate(25);
         return view('cirugies.index')->with('cirugias',$cirugias);
     }
     public function edit($id){
         $cirugia = Cirugy::where('id',$id)->first();
         return view('cirugies.edit')->with('cirugia',$cirugia);
+    }
+
+    public function postEdit(Request $request, $id){
+
+        $rules = [
+            'dateline' => 'required',
+            'paciente' => 'required',
+            'doctor' => 'required',
+            'type' => 'required',
+            'comments' => 'required'
+
+        ];
+
+        $messages =[
+            'dateline.required' => 'la fecha es requerida.',
+            'paciente.required' => 'Seleccione un paciente',
+            'doctor.required' => 'Seleccione un doctor.',
+            'type.required' => 'Ingrese un tipo de cirugia.',
+            'comments.required' => 'ingrese una descripcion.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) : 
+            return back()->withErrors($validator)->with('message','Se ha producido un error')->with('typealert','danger')->withInput();
+        else:
+            // dd($request);
+            //crea una carpeta con la fecha de subida de la imagen
+
+
+            $cirugy = Cirugy::findOrFail($id);
+            // dd($cirugy);
+            $cirugy->id_patient= $request->input('paciente');
+            $cirugy->id_doctor = $request->input('doctor');
+            $cirugy->dateline = $request->input('dateline');
+            $cirugy->type = e($request->input('type'));
+            $cirugy->comments = e($request->input('comments'));
+          
+
+            if($cirugy->save()):
+              
+                return back()->with('message','Guardado con exito.')->with('typealert','success');
+            
+            endif;
+        endif;
+    }
+
+    public function delete($id){
+        $c = Cirugy::findOrFail($id);
+        if ($c->delete()) {
+           
+            return back()->with('message','Cirugia Eliminada')->with('typealert','success');
+        }
     }
 
     public function show(){
