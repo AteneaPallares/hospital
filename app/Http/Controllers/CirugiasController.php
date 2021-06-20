@@ -28,7 +28,10 @@ class CirugiasController extends Controller
     }
     public function edit($id){
         $cirugia = Cirugy::where('id',$id)->first();
-        return view('cirugies.edit')->with('cirugia',$cirugia);
+        $doctores = User::all();
+        $pacientes = Patient::all();
+        return view('cirugies.edit')->with('doctores',$doctores)->with('pacientes',$pacientes)->with('cirugia',$cirugia);
+        
     }
 
     public function postEdit(Request $request, $id){
