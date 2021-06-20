@@ -24,7 +24,7 @@
         />
       </div>
       <div class="row col-lg-12">
-        <div class="col-xl-4 col-lg-6 mb-2">
+        <div class="col-xl-4 col-lg-6 mb-3">
           <div class="pl-2 pr-0 pb-0 pt-0 card text-left">
             <div class="card-body text-center">
               <div class="chart-container p-0 m-0">
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-lg-6 mb-2">
+        <div class="col-xl-4 col-lg-6 mb-3">
           <div class="pl-2 pr-0 pb-0 pt-0 card text-left">
             <div class="card-body text-center">
               <div class="chart-container p-0 m-0">
@@ -42,7 +42,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-lg-6 mb-2">
+        <div class="col-xl-4 col-lg-6 mb-3">
           <div class="pl-2 pr-0 pb-0 pt-0 card text-left">
             <div class="card-body text-center">
               <div class="chart-container p-0 m-0">
@@ -51,18 +51,7 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row col-lg-12 mt-3">
-        <div class="col-lg-8 mb-2">
-          <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
-            <div class="d-inline card-body text-center">
-              <div class="chart-container p-0 m-0">
-                <canvas id="line"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 mb-2">
+        <div class="col-xl-4 col-lg-6 mb-3">
           <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
             <div class="d-inline card-body text-center p-0">
               <div class="chart-container p-0 m-0">
@@ -71,6 +60,16 @@
             </div>
           </div>
         </div>
+        <div class="col-xl-8 col-lg-12 mb-3">
+          <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
+            <div class="d-inline card-body text-center">
+              <div class="chart-container p-0 m-0">
+                <canvas id="line"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>

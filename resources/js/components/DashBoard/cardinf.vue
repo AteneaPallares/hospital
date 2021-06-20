@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 float-left">
+  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12 float-left">
     <div class="mb-3 m-0 cd">
       <div :id="this.id+'conten'">
         <div class="card-body  align-middle">

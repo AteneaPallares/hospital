@@ -122,6 +122,7 @@ class DashBoardController extends Controller
             }
         }
         }
+        
         $obj->patient=count($assign);
         $schedule=Cirugy::all();
         $obj->cirugy=count($schedule);
@@ -130,27 +131,24 @@ class DashBoardController extends Controller
         $userinfo=[];
         $help=1;
         $array = array(0 => 'azul');
-               
         foreach($users as $element){
-            
-            if($element->roles[0]!=null){
-            $key = array_search($element->roles[0]->name, $array); // $clave = 2;
-               
-           if($key==false && $element->roles[0]!=null){
-               
-                $userinfo[$element->roles[0]->name]=1;
-                array_push($array,$element->roles[0]->name);
-           }else if($element->roles[0]!=null){
-                $help= $userinfo[$element->roles[0]->name]+1;
-                $userinfo[$element->roles[0]->name]=$help;
-           }}
-           
+            if(sizeof($element->roles)>0){
+                $key = array_search($element->roles[0]->name, $array); 
+                if($key==false && $element->roles[0]!=null){
+                        $userinfo[$element->roles[0]->name]=1;
+                        array_push($array,$element->roles[0]->name);
+                }else if($element->roles[0]!=null){
+                        $help= $userinfo[$element->roles[0]->name]+1;
+                        $userinfo[$element->roles[0]->name]=$help;
+                }
+            }
         }
         
         $obj->diagnoses=count(Diagnose::all());
         $obj->schedule=count(Schedule::all());
         $obj->user=count(User::all());
         $data = ['all'=>$obj,'register'=>$numberdate,'patient'=> $paatientd,'date'=>$datestatus,'weight'=>$weightstatus,'users'=>$userinfo];
+        
         return $data;
     }
     /**

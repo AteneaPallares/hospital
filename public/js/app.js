@@ -4269,7 +4269,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["route"],
   data: function data() {
@@ -7633,22 +7632,10 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     if (this.number != 0) {
-      if (this.number == 3) {
-        axios.get("/pacientes/detalleone/".concat(this.editid)).then(function (response) {
-          _this.diagnose.patient = response.data;
-
-          if (_this.diagnose.patient.image == null) {
-            document.getElementById("pic").src = "../../../../storage/drop.png";
-          } else {
-            document.getElementById("pic").src = "../../../../storage/" + _this.diagnose.patient.image;
-          }
-        });
-      }
-
       axios.get("/usuarios/detalleone/".concat(this.editid)).then(function (response) {
         console.log(response.data);
         _this.user = response.data;
-        _this.nuevo = _this.user.roles.length >= 0 ? _this.user.roles[0].id : null;
+        _this.nuevo = _this.user.roles.length > 0 ? _this.user.roles[0].id : null;
 
         if (_this.user.gender == 1) {
           _this.user.gender = "1";
@@ -7676,7 +7663,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     validate: function validate() {
-      if (!(this.user.name != null && this.user.address != null && this.user.CURP != null && this.user.phone != null && this.user.gender != null && this.user.status != null && this.user.marita_status != null && this.user.birth_date != null && this.user.ns != null && this.user.weight != null && this.user.height != null && this.user.phone_sec != null && this.user.occupation != null && this.user.salary != null && this.user.email != null && (this.show == false || this.user.password != null && this.confirmationp != null))) {
+      if (!(this.user.name != null && this.user.address != null && this.user.CURP != null && this.user.phone != null && this.user.gender != null && this.user.status != null && this.user.marita_status != null && this.user.birth_date != null && this.user.ns != null && this.user.weight != null && this.user.height != null && this.user.phone_sec != null && this.user.occupation != null && this.user.salary != null && this.user.email != null && this.nuevo != null && (this.show == false || this.user.password != null && this.confirmationp != null))) {
         this.showErrorNotification("Agregando usuario", "Complete la información de los campos requeridos");
         return false;
       }
@@ -106759,7 +106746,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-lg-4 col-md-6 col-sm-6 col-xs-12 float-left" },
+    { staticClass: "col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12 float-left" },
     [
       _c("div", { staticClass: "mb-3 m-0 cd" }, [
         _c("div", { attrs: { id: this.id + "conten" } }, [
@@ -106856,9 +106843,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2)
+      _vm._m(1)
     ])
   ])
 }
@@ -106894,7 +106879,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row col-lg-12" }, [
-      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-2" }, [
+      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-3" }, [
         _c("div", { staticClass: "pl-2 pr-0 pb-0 pt-0 card text-left" }, [
           _c("div", { staticClass: "card-body text-center" }, [
             _c("div", { staticClass: "chart-container p-0 m-0" }, [
@@ -106904,7 +106889,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-2" }, [
+      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-3" }, [
         _c("div", { staticClass: "pl-2 pr-0 pb-0 pt-0 card text-left" }, [
           _c("div", { staticClass: "card-body text-center" }, [
             _c("div", { staticClass: "chart-container p-0 m-0" }, [
@@ -106914,7 +106899,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-2" }, [
+      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-3" }, [
         _c("div", { staticClass: "pl-2 pr-0 pb-0 pt-0 card text-left" }, [
           _c("div", { staticClass: "card-body text-center" }, [
             _c("div", { staticClass: "chart-container p-0 m-0" }, [
@@ -106922,29 +106907,23 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row col-lg-12 mt-3" }, [
-      _c("div", { staticClass: "col-lg-8 mb-2" }, [
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-xl-4 col-lg-6 mb-3" }, [
         _c("div", { staticClass: "pl-2 pr-0 pb-0 pt-0 text-left card h-100" }, [
-          _c("div", { staticClass: "d-inline card-body text-center" }, [
+          _c("div", { staticClass: "d-inline card-body text-center p-0" }, [
             _c("div", { staticClass: "chart-container p-0 m-0" }, [
-              _c("canvas", { attrs: { id: "line" } })
+              _c("canvas", { attrs: { id: "myChart4" } })
             ])
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-lg-4 mb-2" }, [
+      _c("div", { staticClass: "col-xl-8 col-lg-12 mb-3" }, [
         _c("div", { staticClass: "pl-2 pr-0 pb-0 pt-0 text-left card h-100" }, [
-          _c("div", { staticClass: "d-inline card-body text-center p-0" }, [
+          _c("div", { staticClass: "d-inline card-body text-center" }, [
             _c("div", { staticClass: "chart-container p-0 m-0" }, [
-              _c("canvas", { attrs: { id: "myChart4" } })
+              _c("canvas", { attrs: { id: "line" } })
             ])
           ])
         ])

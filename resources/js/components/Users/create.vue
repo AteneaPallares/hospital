@@ -562,22 +562,11 @@ export default {
     });
 
     if (this.number != 0) {
-      if(this.number==3){
-        axios.get(`/pacientes/detalleone/${this.editid}`).then((response) => {
-        this.diagnose.patient=response.data;
-        if (this.diagnose.patient.image == null) {
-          document.getElementById("pic").src = "../../../../storage/drop.png";
-         } else {
-          document.getElementById("pic").src =
-            "../../../../storage/" + this.diagnose.patient.image;
-        }
-      });
-      }
       axios.get(`/usuarios/detalleone/${this.editid}`).then((response) => {
         console.log(response.data);
-
+    
         this.user = response.data;
-        this.nuevo = this.user.roles.length >= 0 ? this.user.roles[0].id : null;
+        this.nuevo = this.user.roles.length> 0 ? this.user.roles[0].id : null;
         if (this.user.gender == 1) {
           this.user.gender = "1";
         } else {
@@ -619,6 +608,7 @@ export default {
           this.user.occupation != null &&
           this.user.salary != null &&
           this.user.email != null &&
+          this.nuevo!=null&&
           (this.show == false ||
             (this.user.password != null && this.confirmationp != null))
         )
