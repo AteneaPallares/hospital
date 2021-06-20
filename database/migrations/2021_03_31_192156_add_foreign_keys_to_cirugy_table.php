@@ -13,9 +13,9 @@ class AddForeignKeysToCirugyTable extends Migration
      */
     public function up()
     {
-        Schema::table('diagnose', function (Blueprint $table) {
-            $table->foreign('id_doctor', 'fk_id_doctor_diagnose2')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-            $table->foreign('id_patient', 'fk_id_patient_diagnose2')->references('id')->on('patient')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+        Schema::table('cirugy', function (Blueprint $table) {
+            $table->foreign('id_doctor', 'fk_id_doctor_cirugy')->references('id')->on('users')->onDelete('RESTRICT');
+            $table->foreign('id_patient', 'fk_id_patient_cirugy')->references('id')->on('patient')->onDelete('RESTRICT');
         });
     }
 
@@ -26,9 +26,9 @@ class AddForeignKeysToCirugyTable extends Migration
      */
     public function down()
     {
-        Schema::table('diagnose', function (Blueprint $table) {
-            $table->dropForeign('fk_id_doctor_diagnose');
-            $table->dropForeign('fk_id_patient_diagnose');
+        Schema::table('cirugy', function (Blueprint $table) {
+            $table->dropForeign('fk_id_doctor_cirugy');
+            $table->dropForeign('fk_id_patient_cirugy');
         });
     }
 }

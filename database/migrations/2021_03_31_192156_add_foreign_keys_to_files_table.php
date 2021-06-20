@@ -14,7 +14,7 @@ class AddForeignKeysToFilesTable extends Migration
     public function up()
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->foreign('id_diagnose', 'fk_id_files_diagnose')->references('id')->on('diagnose')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('id_diagnose', 'fk_id_files_diagnose')->references('id')->on('diagnose')->onDelete('RESTRICT');
         });
     }
 

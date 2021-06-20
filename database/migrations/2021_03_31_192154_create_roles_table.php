@@ -14,11 +14,36 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable;
             $table->timestamps();
         });
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Administrador',
+                'description'=>'Acceso total'
+            )
+        );
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Doctor',
+                'description'=>'Acceso total pacientes'
+            )
+        );
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Enfermera',
+                'description'=>'Acceso parcial a pacientes'
+            )
+        );
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Secretaria',
+                'description'=>'Acceso parcial del sistema'
+            )
+        );
+        
     }
 
     /**

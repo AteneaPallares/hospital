@@ -14,7 +14,7 @@ class AddForeignKeysToInventaryTable extends Migration
     public function up()
     {
         Schema::table('inventary', function (Blueprint $table) {
-            $table->foreign('id_area', 'fk_id_inventary_area')->references('id')->on('area')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('id_area', 'fk_id_inventary_area')->references('id')->on('area')->onDelete('RESTRICT');
         });
     }
 

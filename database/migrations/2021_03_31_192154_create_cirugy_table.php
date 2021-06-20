@@ -15,8 +15,8 @@ class CreateCirugyTable extends Migration
     {
         Schema::create('cirugy', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_patient')->index('fk_id_patient_diagnose2');
-            $table->unsignedBigInteger('id_doctor')->index('fk_id_doctor_diagnose2');
+            $table->unsignedBigInteger('id_patient')->index('fk_id_patient_cirugy');
+            $table->unsignedBigInteger('id_doctor')->index('fk_id_doctor_cirugy');
             $table->string('type', 100)->nullable();
             $table->dateTime('dateline')->nullable();
             $table->string('comments', 100)->nullable();

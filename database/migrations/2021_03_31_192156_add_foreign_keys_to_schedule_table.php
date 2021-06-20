@@ -14,7 +14,7 @@ class AddForeignKeysToScheduleTable extends Migration
     public function up()
     {
         Schema::table('schedule', function (Blueprint $table) {
-            $table->foreign('id_area', 'fk_id_schedyle_area')->references('id')->on('area')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('id_area', 'fk_id_schedyle_area')->references('id')->on('area')->onDelete('RESTRICT');
         });
     }
 
