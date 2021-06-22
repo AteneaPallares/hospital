@@ -10,8 +10,10 @@ use App\Models\Diagnose;
 use App\Models\Schedule;
 use App\Models\File;
 use App\Models\Inventary;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Patient;
 use Carbon\Carbon;
+use PDF;
 class DashBoardController extends Controller
 {
     /**
@@ -32,6 +34,16 @@ class DashBoardController extends Controller
     public function index()
     {
         return view('dashboard/index');
+    }
+    public function print(){
+        $params=$this->showall();
+        view()->share('all',$params);
+        //view()->share('assigned_schedules/edit',$params);
+         $pdf = PDF::loadView('dashboard/print', $params);
+
+         // download PDF file with download method
+         return $pdf->download('reporte.pdf');
+    
     }
     public function showall()
     {
@@ -148,8 +160,8 @@ class DashBoardController extends Controller
         $obj->schedule=count(Schedule::all());
         $obj->user=count(User::all());
         $schedule=Schedule::with('area','users')->get();
-    
-        $data = ['all'=>$obj,'register'=>$numberdate,'patient'=> $paatientd,'date'=>$datestatus,'weight'=>$weightstatus,'users'=>$userinfo,'schedule'=>$schedule];
+        $inventary=Inventary::with('area')->get();
+        $data = ['all'=>$obj,'register'=>$numberdate,'patient'=> $paatientd,'date'=>$datestatus,'weight'=>$weightstatus,'users'=>$userinfo,'schedule'=>$schedule,'inventary'=>$inventary,'username'=>Auth::user()->name,'dates'=>Carbon::now()];
         
         return $data;
     }

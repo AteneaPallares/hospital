@@ -5,6 +5,7 @@
       <a
         class="btn btn-primary btn-sm d-none d-sm-inline-block"
         role="button"
+        @click="print"
         href="#"
         ><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generar
         reporte</a
@@ -300,6 +301,10 @@ export default {
       });
     },
     onClickDetails($idy) {},
+    print(){
+       window.location.href = "/dashboard/print/";
+     
+    }
   },
 };
 </script>
