@@ -72,4 +72,20 @@ Route::get('/dashboard/all','App\Http\Controllers\DashBoardController@showall')-
 
 Route::apiResource('archivos', 'App\Http\Controllers\FileController');
 
+Route::get('/horarios','App\Http\Controllers\ScheduleController@index')->name('horarios.index');
+Route::get('/horarios/all','App\Http\Controllers\ScheduleController@showall')->name('horarios.showall');
+Route::get('/horarios/editar/{id}','App\Http\Controllers\ScheduleController@showedit')->name('horarios.edit');
+Route::get('/horarios/detalleone/{id}','App\Http\Controllers\ScheduleController@showone')->name('horarios.nuevo');
+Route::get('/horarios/agregar','App\Http\Controllers\ScheduleController@create')->name('horarios.create');
+Route::get('/horarios/detalle/{id}','App\Http\Controllers\ScheduleController@show')->name('horarios.show');
+Route::get('/horarios/usuarios/{id}','App\Http\Controllers\ScheduleController@changeusers')->name('horarios.changeusers');
 
+Route::apiResource('horarios', 'App\Http\Controllers\ScheduleController');
+
+Route::get('/inventario','App\Http\Controllers\InventaryController@index')->name('inventario.index');
+Route::get('/inventario/all','App\Http\Controllers\InventaryController@showall')->name('inventario.showall');
+Route::get('/inventario/editar/{id}','App\Http\Controllers\InventaryController@showedit')->name('inventario.edit');
+Route::get('/inventario/detalleone/{id}','App\Http\Controllers\InventaryController@showone')->name('inventario.nuevo');
+Route::get('/inventario/agregar','App\Http\Controllers\InventaryController@create')->name('inventario.create');
+Route::get('/inventario/detalle/{id}','App\Http\Controllers\InventaryController@show')->name('inventario.show');
+Route::apiResource('inventario', 'App\Http\Controllers\InventaryController');

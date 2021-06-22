@@ -1,18 +1,7 @@
-$userinfo=[];
-        $help=1;
-        $array = array(0 => 'azul');
-               
-        foreach($patientsall as $element){
-            if($element->roles.length>0){
-            $key = array_search($element->roles[0], $array); // $clave = 2;
-               
-           if($key==false && $element->roles[0]!=null){
-                $userinfo[$element->roles[0]]=1;
-                array_push($array,$element->roles[0]);
-           }else if($element->roles[0]!=null){
-                $help= $userinfo[$element->roles[0]]+1;
-                $userinfo[$element->roles[0]]=$help;
-           }}
-           
-        }
-        
+Route::get('/inventario','App\Http\Controllers\InventaryController@index')->name('inventario.index');
+Route::get('/inventario/all','App\Http\Controllers\InventaryController@showall')->name('inventario.showall');
+Route::get('/inventario/editar/{id}','App\Http\Controllers\InventaryController@showedit')->name('inventario.edit');
+Route::get('/inventario/detalleone/{id}','App\Http\Controllers\InventaryController@showone')->name('inventario.nuevo');
+Route::get('/inventario/agregar','App\Http\Controllers\InventaryController@create')->name('inventario.create');
+Route::get('/inventario/detalle/{id}','App\Http\Controllers\InventaryController@show')->name('inventario.show');
+Route::apiResource('inventario', 'App\Http\Controllers\InventaryController');

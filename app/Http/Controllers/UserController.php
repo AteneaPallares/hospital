@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function showall()
     {
-        return User::with('roles','schedule_medics')->get();
+        return User::with('roles','schedule')->get();
     }
     /**
      * Show the form for creating a new resource.
@@ -183,7 +183,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return ['response'=>0];
+        try{
+            $user = User:: findOrFail($id);
+            $user->id_schedule=$request->id_schedule;
+            $user -> save();
+        }catch(\Illuminate\Database\QueryException $e){
+            return $e;
+        }
     }
 
     /**

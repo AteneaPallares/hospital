@@ -18,6 +18,9 @@ class CreateScheduleTable extends Migration
             $table->string('name', 100)->nullable();
             $table->string('all_schedule', 500)->nullable();
             $table->unsignedBigInteger('id_area')->index('fk_id_schedyle_area');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            
             $table->timestamps();
         });
     }

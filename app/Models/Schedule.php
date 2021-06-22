@@ -32,10 +32,15 @@ class Schedule extends Model
 	protected $casts = [
 		'id_area' => 'int'
 	];
-
+	protected $dates = [
+		'end_date',
+		'start_date'
+	];
 	protected $fillable = [
 		'name',
 		'all_schedule',
+		'start_date',
+		'end_date',
 		'id_area'
 	];
 
@@ -44,8 +49,8 @@ class Schedule extends Model
 		return $this->belongsTo(Area::class, 'id_area');
 	}
 
-	public function schedule_medics()
+	public function users()
 	{
-		return $this->hasMany(ScheduleMedic::class, 'id_schedule');
+		return $this->hasMany(User::class, 'id_schedule');
 	}
 }

@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_sec', 100)->nullable();
             $table->string('status', 20)->nullable();
             $table->string('cetificate_number', 30)->nullable();
+            $table->unsignedBigInteger('id_schedule')->nullable()->index('fk_id__schedule');
             $table->float('salary', 10, 0)->nullable();
             $table->timestamps();
         });

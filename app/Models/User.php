@@ -76,6 +76,10 @@ class User extends Model implements AuthenticatableContract
             ->belongsToMany(Role::class)
             ->withTimestamps();
     }
+	public function schedule()
+	{
+		return $this->belongsTo(Schedule::class, 'id_schedule');
+	}
     public function hasRole($role)
     {
         if ($this->roles()->where('name', $role)->first()) {

@@ -36,6 +36,16 @@
             ><i class="el-icon-map-location"></i><span>Áreas</span></a
           >
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/horarios/"
+            ><i class="el-icon-date"></i><span>Horarios</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/inventario/"
+            ><i class="el-icon-suitcase"></i><span>Inventario</span></a
+          >
+        </li>
       </ul>
       <div class="text-center d-none d-md-inline">
         <button

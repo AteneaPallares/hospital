@@ -38,6 +38,12 @@ Vue.component('areaindex-component', require('./components/Areas/index.vue').def
 Vue.component('areacreate-component', require('./components/Areas/create.vue').default);
 Vue.component('dashboard-component', require('./components/DashBoard/index.vue').default);
 Vue.component('cardinfo-component', require('./components/DashBoard/cardinf.vue').default);
+Vue.component('schedulecreate-component', require('./components/Schedule/create.vue').default);
+Vue.component('scheduleindex-component', require('./components/Schedule/index.vue').default);
+Vue.component('scheduleusers-component', require('./components/Schedule/users.vue').default);
+Vue.component('scheduleuser-component', require('./components/Users/schedule.vue').default);
+Vue.component('inventaryindex-component', require('./components/Inventary/index.vue').default);
+Vue.component('inventarycreate-component', require('./components/Inventary/create.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

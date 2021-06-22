@@ -469,6 +469,21 @@
           </div>
         </div>
       </div>
+      <div v-if="number != 0" class="container-fluid mt-5">
+        <div id="" class="card shadow mb-5">
+          <div class="m-0'">
+            <div class="card-header py-3">
+              <h5 class="text-primary font-weight-bold">Horario</h5>
+            </div>
+            <div class="card-body">
+              <scheduleuser-component
+                v-if="this.detailsid != null"
+                v-bind:userselected="this.detailsid"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -564,9 +579,9 @@ export default {
     if (this.number != 0) {
       axios.get(`/usuarios/detalleone/${this.editid}`).then((response) => {
         console.log(response.data);
-    
+
         this.user = response.data;
-        this.nuevo = this.user.roles.length> 0 ? this.user.roles[0].id : null;
+        this.nuevo = this.user.roles.length > 0 ? this.user.roles[0].id : null;
         if (this.user.gender == 1) {
           this.user.gender = "1";
         } else {
@@ -608,7 +623,7 @@ export default {
           this.user.occupation != null &&
           this.user.salary != null &&
           this.user.email != null &&
-          this.nuevo!=null&&
+          this.nuevo != null &&
           (this.show == false ||
             (this.user.password != null && this.confirmationp != null))
         )
@@ -799,11 +814,13 @@ label.label input[type="button"] {
 .label:invalid + span {
   color: #000000;
 }
-input[readonly], input[readonly="readonly"] {
-    background-color: rgb(248, 247, 247);
+input[readonly],
+input[readonly="readonly"] {
+  background-color: rgb(248, 247, 247);
 }
-textarea[readonly="readonly"], textarea[readonly] {
-background-color: rgb(248, 247, 247);
+textarea[readonly="readonly"],
+textarea[readonly] {
+  background-color: rgb(248, 247, 247);
 }
 .label:valid + span {
   color: #ffffff;

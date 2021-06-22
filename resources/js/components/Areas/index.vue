@@ -378,7 +378,7 @@ export default {
                   "El área se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification("Eliminar", "área eliminado");
+                this.showSuccessNotification("Eliminar", "Área eliminada");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
                 axios.get("/" + this.urlactive + "/").then((res) => {
