@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-    
+
     <title>Chispots</title>
 
     <!-- Scripts -->
@@ -48,7 +48,7 @@
                     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                         <div class="container">
                             <a class="navbar-brand" href="{{ url('/') }}">
-                               Chispots
+                                Chispots
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -78,20 +78,27 @@
                                     </li>
                                     @endif
                                     @else
-                                    <a id="navbarDropdown" class="nav-link" href="/dashboard/"  aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->getrole() }}
-                                        </a>
+                                    <a id="navbarDropdown" class="nav-link" href="/dashboard/" aria-haspopup="true"
+                                        aria-expanded="false" v-pre>
+                                        {{ Auth::user()->getrole() }}
+                                    </a>
                                     <li class="nav-item dropdown">
-                                    
+
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->name }}
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="/dashboard/">
+                                                Home
+                                            </a>
+                                            <a class="dropdown-item" href="{{'/usuarios/'.Auth::user()->id}}">
+                                                Mi cuenta
+                                            </a>
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
+                                                Cerrar sesión
                                             </a>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"

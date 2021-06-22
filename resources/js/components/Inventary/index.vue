@@ -65,7 +65,7 @@
                       />
                     </th>
                     <th @click="sort(4)" class="w-25">
-                      Artículo
+                      Área
                       <i
                         v-show="this.searchfield == 4 && this.asc == false"
                         class="text-success el-icon-caret-top"
@@ -172,7 +172,7 @@
                       />
                     </th>
                     <th @click="sort(4)" class="w-25">
-                      Artículo
+                      Área
                       <i
                         v-show="this.searchfield == 4 && this.asc == false"
                         class="text-success el-icon-caret-top"
@@ -337,7 +337,7 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.quantity, this.search)) {
             this.aux.push(value);
-          }else if (this.foundIt(value.area.name, this.search)) {
+          } else if (this.foundIt(value.area.name, this.search)) {
             this.aux.push(value);
           }
         });
@@ -374,7 +374,7 @@ export default {
             a.quantity > b.quantity ? -1 : Number(a.quantity < b.quantity)
           );
         }
-      }else if ($op == 4) {
+      } else if ($op == 4) {
         if (this.asc) {
           this.aux.sort((a, b) =>
             a.area.name < b.area.name ? -1 : Number(a.area.name > b.area.name)

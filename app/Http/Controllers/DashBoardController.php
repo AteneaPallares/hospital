@@ -147,7 +147,9 @@ class DashBoardController extends Controller
         $obj->diagnoses=count(Diagnose::all());
         $obj->schedule=count(Schedule::all());
         $obj->user=count(User::all());
-        $data = ['all'=>$obj,'register'=>$numberdate,'patient'=> $paatientd,'date'=>$datestatus,'weight'=>$weightstatus,'users'=>$userinfo];
+        $schedule=Schedule::with('area','users')->get();
+    
+        $data = ['all'=>$obj,'register'=>$numberdate,'patient'=> $paatientd,'date'=>$datestatus,'weight'=>$weightstatus,'users'=>$userinfo,'schedule'=>$schedule];
         
         return $data;
     }

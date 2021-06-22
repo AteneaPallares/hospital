@@ -164,6 +164,10 @@ export default {
     edit() {
       console.log(this.inventary);
       this.inventary.id_area=this.area;
+      if(this.inventary.name==null||this.inventary.quantity==null||this.inventary.id_area==null){
+        this.showErrorNotification("Agregar inventario","Ingrese todos los campos");
+        return;
+      }
       axios.post("/inventario", this.inventary).then((response) => {
         if (_.isNumber(response.data.response)) {
           this.editid = response.data.response;

@@ -141,7 +141,7 @@
                         class="text-primary el-icon-caret-bottom"
                       />
                     </th>
-                    <th @click="sort(3)">
+                    <th @click="sort(5)">
                       Lugar
                       <i
                         v-if="this.searchfield == 5 && this.asc == false"
@@ -330,7 +330,7 @@ export default {
             a.name > b.name ? -1 : Number(a.name < b.name)
           );
         }
-      } else if ($op == 3) {
+      } else if ($op == 5) {
         if (this.asc) {
           this.aux.sort((a, b) =>
             a.place < b.place ? -1 : Number(a.place > b.place)

@@ -55,7 +55,7 @@
           <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
             <div class="d-inline card-body text-center p-0">
               <div class="chart-container p-0 m-0">
-                <canvas id="myChart4"></canvas>
+                <canvas id="myChart5"></canvas>
               </div>
             </div>
           </div>
@@ -69,7 +69,25 @@
             </div>
           </div>
         </div>
-        
+        <div class="col-xl-8 col-lg-12 mb-3">
+          <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
+            <div class="d-inline card-body text-center">
+              <div class="chart-container p-0 m-0">
+                <strong>Inventario</strong>
+                 <inventaryshort-component/>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="col-xl-4 col-lg-6 mb-3">
+            <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
+              <div class="d-inline card-body text-center p-0">
+                <div class="chart-container p-0 m-0">
+                  <canvas id="myChart4"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -166,10 +184,17 @@ export default {
         data4.push(this.course.users[key]);
         labels4.push(key);
       });
+      var data5 = [];
+      var labels5 = [];
+      this.course.schedule.forEach((key) => {
+        data5.push(key.users.length);
+        labels5.push(key.name);
+      });
       this.pie(data, labels, "Estado del paciente", "myChart1");
       this.pie(data2, labels2, "Edades de pacientes", "myChart2");
       this.pie(data3, labels3, "IMC", "myChart3");
-      this.pie(data4, labels4, "Tipos de usuarios", "myChart4","bottom");
+      this.pie(data4, labels4, "Tipos de usuarios", "myChart4", "bottom");
+      this.pie(data5, labels5, "Horario", "myChart5", "bottom");
 
       this.course.register.forEach((value, index) => {
         var dateObj = new Date(value.date);
@@ -239,7 +264,7 @@ export default {
       return color;
     },
 
-    pie($data, $label, $title, $id,$pos="left") {
+    pie($data, $label, $title, $id, $pos = "left") {
       var backgroundColor1 = [];
       var borderColor1 = [];
       for (var i = 0; i < $data.length; i++) {
@@ -274,8 +299,7 @@ export default {
         },
       });
     },
-    onClickDetails($idy) {
-    },
+    onClickDetails($idy) {},
   },
 };
 </script>

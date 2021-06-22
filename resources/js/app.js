@@ -44,6 +44,7 @@ Vue.component('scheduleusers-component', require('./components/Schedule/users.vu
 Vue.component('scheduleuser-component', require('./components/Users/schedule.vue').default);
 Vue.component('inventaryindex-component', require('./components/Inventary/index.vue').default);
 Vue.component('inventarycreate-component', require('./components/Inventary/create.vue').default);
+Vue.component('inventaryshort-component', require('./components/Inventary/indexshort.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -68,14 +68,17 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/dashboard/" >
-                               Home
+                            <a class="dropdown-item" href="/dashboard/">
+                                Home
+                            </a>
+                            <a class="dropdown-item" href="{{'/usuarios/'.Auth::user()->id}}">
+                                Mi cuenta
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 Cerrar sesión
                             </a>
-                            
+
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -150,8 +153,7 @@
                         <div class="carousel-inner">
                             <!-- Single item -->
                             <div class="carousel-item active" data-mdb-interval="5000">
-                                <img src="assets/slide2.png"
-                                    class="d-block w-100" alt="..." />
+                                <img src="assets/slide2.png" class="d-block w-100" alt="..." />
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>Áreas</h5>
                                     <p>Contamos con áreas de calidad, limpias y con mantenimiento constante.</p>
@@ -160,9 +162,7 @@
 
                             <!-- Single item -->
                             <div class="carousel-item" data-mdb-interval="5000">
-                                <img 
-                                src="assets/slide2.png"
-                                class="d-block w-100" alt="..." />
+                                <img src="assets/slide2.png" class="d-block w-100" alt="..." />
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>Radiografías</h5>
                                     <p>Contamos con los mejores equipos para la generación y revisión de exámenes,
@@ -172,11 +172,11 @@
 
                             <!-- Single item -->
                             <div class="carousel-item" data-mdb-interval="5000">
-                                <img src="assets/slide2.png"
-                                class="d-block w-100" alt="..." />
+                                <img src="assets/slide2.png" class="d-block w-100" alt="..." />
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>Personal médico</h5>
-                                    <p>Nuestro personal médico se encuentra capacitado para realizar un trabajo efectivo para el paciente.</p>
+                                    <p>Nuestro personal médico se encuentra capacitado para realizar un trabajo efectivo
+                                        para el paciente.</p>
                                 </div>
                             </div>
                         </div>
