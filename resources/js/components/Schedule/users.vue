@@ -24,7 +24,11 @@
                     >
                   </div>
                   <div class="col-lg-6 col-xs-12 col-md-8 mt-3">
-                    <el-button type="warning" size="medium" @click="updateuser" plain
+                    <el-button
+                      type="warning"
+                      size="medium"
+                      @click="updateuser"
+                      plain
                       >Mostrar original</el-button
                     >
                   </div>
@@ -40,7 +44,7 @@
                       v-model="userselected"
                       filterable
                       placeholder="Seleccione usuario"
-                      :disabled="this.detailsid!=null&&this.detailsid!=0"
+                      :disabled="this.detailsid != null && this.detailsid != 0"
                       @change="updateuser"
                     >
                       <el-option
@@ -71,16 +75,20 @@
                     </el-select>
                   </div>
                 </div>
-                <div v-if="this.scheduledata!=null">
+                <div v-if="this.scheduledata != null">
                   <h5 class="text-primary m-0 font-weight-bold mb-3">
                     Información del horario
                   </h5>
-                  <el-button type="warning" size="medium" @click="editone(scheduledata.id)" plain
-                      >Editar horario</el-button
-                    >
+                  <el-button
+                    type="warning"
+                    size="medium"
+                    @click="editone(scheduledata.id)"
+                    plain
+                    >Editar horario</el-button
+                  >
                   <div class="row mt-2">
                     <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
-                        <strong>Nombre</strong>
+                      <strong>Nombre</strong>
                       <input
                         class="form-control"
                         type="text"
@@ -91,25 +99,25 @@
                       />
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
-                        <strong>Área</strong>
+                      <strong>Área</strong>
                       <el-select
                         style="width: 100%"
                         v-model="area"
                         filterable
                         placeholder="Seleccione área"
-                        :disabled="this.number==2"
+                        :disabled="this.number == 2"
                       >
                         <el-option
                           v-for="item in areas"
                           :key="item.id"
-                          :label="item.name+': '+item.place"
+                          :label="item.name + ': ' + item.place"
                           :value="item.id"
                         >
                         </el-option>
                       </el-select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
-                        <strong>Fecha de inicio</strong>
+                      <strong>Fecha de inicio</strong>
                       <el-date-picker
                         style="width: 100%"
                         v-model="scheduledata.start_date"
@@ -120,7 +128,7 @@
                       </el-date-picker>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-8 mb-2">
-                        <strong>Fecha de fin</strong>
+                      <strong>Fecha de fin</strong>
                       <el-date-picker
                         style="width: 100%"
                         v-model="scheduledata.end_date"
@@ -220,36 +228,36 @@ export default {
       .then((res) => {
         this.areas = res.data;
         console.log(this.areas);
-      })
-      .catch((error) => {
-        this.showErrorNotification(
-          "Error al cargar datos",
-          "Conexión inválida"
-        );
-        console.log(error);
-      });
-    axios
-      .get("/horarios/all")
-      .then((res) => {
-        console.log(res.data);
-        this.data = res.data;
-      })
-      .catch((error) => {
-        this.showErrorNotification(
-          "Error al cargar datos",
-          "Conexión inválida"
-        );
-        console.log(error);
-      });
-    axios
-      .get("/usuarios/all")
-      .then((res) => {
-        console.log(res.data);
-        this.users = res.data;
-        if(this.detailsid!=null && this.detailsid!=0){
-            this.userselected=this.detailsid;
-        }
-        this.updateuser();
+        axios
+          .get("/horarios/all")
+          .then((res) => {
+            console.log(res.data);
+            this.data = res.data;
+            axios
+              .get("/usuarios/all")
+              .then((res) => {
+                console.log(res.data);
+                this.users = res.data;
+                if (this.detailsid != null && this.detailsid != 0) {
+                  this.userselected = this.detailsid;
+                }
+                this.updateuser();
+              })
+              .catch((error) => {
+                this.showErrorNotification(
+                  "Error al cargar datos",
+                  "Conexión inválida"
+                );
+                console.log(error);
+              });
+          })
+          .catch((error) => {
+            this.showErrorNotification(
+              "Error al cargar datos",
+              "Conexión inválida"
+            );
+            console.log(error);
+          });
       })
       .catch((error) => {
         this.showErrorNotification(
@@ -346,9 +354,10 @@ export default {
     },
     ret() {
       window.location.href = "/horarios";
-    },editone($id){
-        window.location.href = "/horarios/editar/"+$id;
-    }
+    },
+    editone($id) {
+      window.location.href = "/horarios/editar/" + $id;
+    },
   },
 };
 </script>

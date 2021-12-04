@@ -42,9 +42,11 @@ class Cirugy extends Model
 	protected $fillable = [
 		'id_patient',
 		'id_doctor',
-		'dateline',
 		'type',
 		'comments',
+	];
+	protected $dates = [
+		'dateline'
 	];
 
 	public function user()

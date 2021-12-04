@@ -50,14 +50,21 @@ Route::get('/historiales/detalle/{id}','App\Http\Controllers\DiagnoseController@
 Route::apiResource('historiales', 'App\Http\Controllers\DiagnoseController');
 
 // Cirugias 
-Route::get('/cirugias/add','App\Http\Controllers\CirugiasController@show')->name('Cirugias.Add');
-Route::post('/cirugias/add/post','App\Http\Controllers\CirugiasController@postCirugiasAdd');
-Route::get('/cirugias/{id}/detalle','App\Http\Controllers\CirugiasController@detalle');
-Route::get('/cirugias/{id}/edit','App\Http\Controllers\CirugiasController@edit');
-Route::post('/cirugias/edit/{id}','App\Http\Controllers\CirugiasController@postEdit');
-Route::post('/cirugias/{id}/delete','App\Http\Controllers\CirugiasController@delete');
-Route::get('cirugias', 'App\Http\Controllers\CirugiasController@index');
+Route::get('/cirugias','App\Http\Controllers\CirugiasController@index')->name('cirugias.index');
+Route::get('/cirugias/all','App\Http\Controllers\CirugiasController@showall')->name('cirugias.showall');
+Route::get('/cirugias/editar/{id}','App\Http\Controllers\CirugiasController@showedit')->name('cirugias.edit');
+Route::get('/cirugias/detalleone/{id}','App\Http\Controllers\CirugiasController@showone')->name('cirugias.nuevo');
+Route::get('/cirugias/agregar','App\Http\Controllers\CirugiasController@create')->name('cirugias.create');
+Route::get('/cirugias/detalle/{id}','App\Http\Controllers\CirugiasController@show')->name('cirugias.show');
 Route::apiResource('cirugias', 'App\Http\Controllers\CirugiasController');
+// Route::get('/cirugias/add','App\Http\Controllers\CirugiasController@show')->name('Cirugias.Add');
+// Route::post('/cirugias/add/post','App\Http\Controllers\CirugiasController@postCirugiasAdd');
+// Route::get('/cirugias/{id}/detalle','App\Http\Controllers\CirugiasController@detalle');
+// Route::get('/cirugias/{id}/edit','App\Http\Controllers\CirugiasController@edit');
+// Route::post('/cirugias/edit/{id}','App\Http\Controllers\CirugiasController@postEdit');
+// Route::post('/cirugias/{id}/delete','App\Http\Controllers\CirugiasController@delete');
+// Route::get('cirugias', 'App\Http\Controllers\CirugiasController@index');
+// Route::apiResource('cirugias', 'App\Http\Controllers\CirugiasController');
 
 Route::get('/areas','App\Http\Controllers\AreaController@index')->name('areas.index');
 Route::get('/areas/all','App\Http\Controllers\AreaController@showall')->name('areas.showall');

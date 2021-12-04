@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
-    <div id="" >
-      <div >
-        <div >
-          <div >
+    <div id="">
+      <div>
+        <div>
+          <div>
             <div class="row col-12 m-0 p-0">
               <div class="text-right col-sm-9 col-lg-10 col-xl-11 m-0 p-0">
                 <input
@@ -298,7 +298,7 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.quantity, this.search)) {
             this.aux.push(value);
-          }else if (this.foundIt(value.area.name, this.search)) {
+          } else if (this.foundIt(value.area.name, this.search)) {
             this.aux.push(value);
           }
         });
@@ -335,7 +335,7 @@ export default {
             a.quantity > b.quantity ? -1 : Number(a.quantity < b.quantity)
           );
         }
-      }else if ($op == 4) {
+      } else if ($op == 4) {
         if (this.asc) {
           this.aux.sort((a, b) =>
             a.area.name < b.area.name ? -1 : Number(a.area.name > b.area.name)
@@ -386,7 +386,7 @@ export default {
                 this.showSuccessNotification("Eliminar", "Artículo eliminado");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
-                axios.get("/" + this.urlactive + "/").then((res) => {
+                axios.get("/inventario/all").then((res) => {
                   this.content = res.data;
                 });
                 this.max = Math.ceil(this.aux.length / this.pagesize);

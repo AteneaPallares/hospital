@@ -1,17 +1,21 @@
 <template>
   <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12 float-left">
     <div class="mb-3 m-0 cd">
-      <div :id="this.id+'conten'">
-        <div class="card-body  align-middle">
+      <div :id="this.id + 'conten'">
+        <div class="card-body align-middle">
           <div class="card-body-icon">
-            <i :id="this.id+'customicon'"></i>
+            <i :id="this.id + 'customicon'"></i>
           </div>
           <div class="media-body text-right">
-            <h3 :id="this.id+'number'">278</h3>
-            <span :id="this.id+'showt'">New Posts</span>
+            <h3 :id="this.id + 'number'">278</h3>
+            <span :id="this.id + 'showt'">New Posts</span>
           </div>
         </div>
-        <a class="card-footer text-white view small z-1" href="#" @click="send()">
+        <a
+          class="card-footer text-white view small z-1"
+          href="#"
+          @click="send()"
+        >
           <span class="float-left det">Ver detalles</span>
           <span class="float-right det">
             <i class="el-icon-arrow-right"></i>
@@ -23,24 +27,24 @@
 </template>
 <script>
 export default {
-  props: ["text", "number", "icon", "url", "bg","id"],
+  props: ["text", "number", "icon", "url", "bg", "id"],
   data() {
     return {};
   },
   mounted() {
-    document.getElementById(this.id+"showt").innerHTML = this.text;
-    document.getElementById(this.id+"number").innerHTML = this.number;
+    document.getElementById(this.id + "showt").innerHTML = this.text;
+    document.getElementById(this.id + "number").innerHTML = this.number;
     var aux2 = "card text-white m-0 o-hidden h-60";
     aux2 += this.ico + " " + this.bg;
-    document.getElementById(this.id+"conten").className = aux2;
+    document.getElementById(this.id + "conten").className = aux2;
     var aux = "ico float-left ";
     aux += this.icon;
-    document.getElementById(this.id+"customicon").className = aux;
+    document.getElementById(this.id + "customicon").className = aux;
   },
   methods: {
-    send(){
-      window.location="/"+this.url+"/";
-    }
+    send() {
+      window.location = "/" + this.url + "/";
+    },
   },
 };
 </script>

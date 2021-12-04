@@ -1,7 +1,7 @@
-Route::get('/inventario','App\Http\Controllers\InventaryController@index')->name('inventario.index');
-Route::get('/inventario/all','App\Http\Controllers\InventaryController@showall')->name('inventario.showall');
-Route::get('/inventario/editar/{id}','App\Http\Controllers\InventaryController@showedit')->name('inventario.edit');
-Route::get('/inventario/detalleone/{id}','App\Http\Controllers\InventaryController@showone')->name('inventario.nuevo');
-Route::get('/inventario/agregar','App\Http\Controllers\InventaryController@create')->name('inventario.create');
-Route::get('/inventario/detalle/{id}','App\Http\Controllers\InventaryController@show')->name('inventario.show');
-Route::apiResource('inventario', 'App\Http\Controllers\InventaryController');
+Route::get('/cirugias','App\Http\Controllers\CirugiasController@index')->name('cirugias.index');
+Route::get('/cirugias/all','App\Http\Controllers\CirugiasController@showall')->name('cirugias.showall');
+Route::get('/cirugias/editar/{id}','App\Http\Controllers\CirugiasController@showedit')->name('cirugias.edit');
+Route::get('/cirugias/detalleone/{id}','App\Http\Controllers\CirugiasController@showone')->name('cirugias.nuevo');
+Route::get('/cirugias/agregar','App\Http\Controllers\CirugiasController@create')->name('cirugias.create');
+Route::get('/cirugias/detalle/{id}','App\Http\Controllers\CirugiasController@show')->name('cirugias.show');
+Route::apiResource('cirugias', 'App\Http\Controllers\CirugiasController');

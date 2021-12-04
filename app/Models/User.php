@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class User extends Model implements AuthenticatableContract
 {
 	use Authenticatable;
+	use HasFactory;
 	protected $table = 'users';
 
 	protected $casts = [

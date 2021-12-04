@@ -425,7 +425,7 @@ export default {
                 this.showSuccessNotification("Eliminar", "Artículo eliminado");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
-                axios.get("/" + this.urlactive + "/").then((res) => {
+                axios.get("/inventario/all").then((res) => {
                   this.content = res.data;
                 });
                 this.max = Math.ceil(this.aux.length / this.pagesize);

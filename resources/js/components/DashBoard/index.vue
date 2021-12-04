@@ -75,20 +75,20 @@
             <div class="d-inline card-body text-center">
               <div class="chart-container p-0 m-0">
                 <strong>Inventario</strong>
-                 <inventaryshort-component/>
+                <inventaryshort-component />
               </div>
             </div>
           </div>
         </div>
-          <div class="col-xl-4 col-lg-6 mb-3">
-            <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
-              <div class="d-inline card-body text-center p-0">
-                <div class="chart-container p-0 m-0">
-                  <canvas id="myChart4"></canvas>
-                </div>
+        <div class="col-xl-4 col-lg-6 mb-3">
+          <div class="pl-2 pr-0 pb-0 pt-0 text-left card h-100">
+            <div class="d-inline card-body text-center p-0">
+              <div class="chart-container p-0 m-0">
+                <canvas id="myChart4"></canvas>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -301,10 +301,9 @@ export default {
       });
     },
     onClickDetails($idy) {},
-    print(){
-       window.location.href = "/dashboard/print/";
-     
-    }
+    print() {
+      window.location.href = "/dashboard/print/";
+    },
   },
 };
 </script>

@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="container-fluid">
     <h2 class="text-dark m-4">Áreas</h2>
     <div id="" class="card shadow">
@@ -93,7 +93,12 @@
                         </button>
 
                         <button
-                          class="btn btn-secondary m-1 col-xl-3 col-xs-12 border-dark"
+                          class="
+                            btn btn-secondary
+                            m-1
+                            col-xl-3 col-xs-12
+                            border-dark
+                          "
                           @click="onClickEdit(props.id)"
                         >
                           <i class="el-icon-edit"></i>
@@ -169,7 +174,12 @@
                             <span class="">{{actual+1}} de {{max}}</span>
                             <button class="btn btn-default p-0 ml-1" @click="Prev(1)" :disabled="actual+1==max"><i class="el-icon-arrow-right"></i></button> -->
                 <nav
-                  class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers"
+                  class="
+                    d-lg-flex
+                    justify-content-lg-end
+                    dataTables_paginate
+                    paging_simple_numbers
+                  "
                 >
                   <ul class="pagination">
                     <li class="page-item" v-if="actual + 1 > 1">
@@ -247,7 +257,6 @@ export default {
       aux: [],
       urlactive: "",
       searchfield: 1,
-
     };
   },
   mounted() {
@@ -301,9 +310,7 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.name, this.search)) {
             this.aux.push(value);
-          } else if (
-            this.foundIt(value.place, this.search)
-          ) {
+          } else if (this.foundIt(value.place, this.search)) {
             this.aux.push(value);
           }
         });
@@ -381,7 +388,7 @@ export default {
                 this.showSuccessNotification("Eliminar", "Área eliminada");
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
-                axios.get("/" + this.urlactive + "/").then((res) => {
+                axios.get("/areas/all").then((res) => {
                   this.content = res.data;
                 });
                 this.max = Math.ceil(this.aux.length / this.pagesize);

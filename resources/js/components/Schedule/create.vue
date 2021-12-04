@@ -64,7 +64,7 @@
                       <el-option
                         v-for="item in areas"
                         :key="item.id"
-                        :label="item.name+': '+item.place"
+                        :label="item.name + ': ' + item.place"
                         :value="item.id"
                       >
                       </el-option>
@@ -285,6 +285,16 @@ export default {
       .then((res) => {
         this.areas = res.data;
         console.log(this.areas);
+        if (this.number != 0) {
+          axios.get(`/horarios/detalleone/${this.editid}`).then((response) => {
+            this.scheduledata = response.data;
+            console.log(this.scheduledata);
+
+            this.area = this.scheduledata.id_area;
+            if (this.scheduledata.all_schedule != null)
+              this.schedule = JSON.parse(this.scheduledata.all_schedule);
+          });
+        }
       })
       .catch((error) => {
         this.showErrorNotification(
@@ -293,16 +303,6 @@ export default {
         );
         console.log(error);
       });
-    if (this.number != 0) {
-      axios.get(`/horarios/detalleone/${this.editid}`).then((response) => {
-        this.scheduledata = response.data;
-        console.log(this.scheduledata);
-
-        this.area = this.scheduledata.id_area;
-        if (this.scheduledata.all_schedule != null)
-          this.schedule = JSON.parse(this.scheduledata.all_schedule);
-      });
-    }
   },
   methods: {
     edit() {
@@ -311,13 +311,18 @@ export default {
       this.scheduledata.all_schedule = myJSON;
       this.scheduledata.id_area = this.area;
       console.log(this.scheduledata);
-      if(this.scheduledata.id_area==null ||
-      this.scheduledata.name==null||
-      this.scheduledata.start_date==null
-    ||this.scheduledata.end_date==null){
-        this.showErrorNotification("Agregar horario","Ingrese todos los campos");
-        return ;
-    }
+      if (
+        this.scheduledata.id_area == null ||
+        this.scheduledata.name == null ||
+        this.scheduledata.start_date == null ||
+        this.scheduledata.end_date == null
+      ) {
+        this.showErrorNotification(
+          "Agregar horario",
+          "Ingrese todos los campos"
+        );
+        return;
+      }
       axios.post("/horarios", this.scheduledata).then((response) => {
         if (_.isNumber(response.data.response)) {
           this.editid = response.data.response;
