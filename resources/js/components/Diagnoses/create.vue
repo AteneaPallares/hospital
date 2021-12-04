@@ -376,15 +376,15 @@ export default {
   mounted() {
     axios.get("/pacientes/all").then((response) => {
       this.pacientes = response.data;
-      console.log(response.data);
+      //console.log(response.data);
       axios.get("/usuarios/all").then((response) => {
         this.doctores = response.data;
-        console.log(response.data);
+        //console.log(response.data);
         axios.get("/usuarios/actual").then((response) => {
           this.loggeduser = response.data;
-          console.log(response.data);
+          //console.log(response.data);
           this.doctor = this.loggeduser.id;
-          console.log(this.doctor);
+          //console.log(this.doctor);
           if (this.number == 3) {
             axios
               .get(`/pacientes/detalleone/${this.editid}`)
@@ -419,7 +419,7 @@ export default {
                 this.doctor = this.diagnose.id_doctor;
                 this.paciente = this.diagnose.id_patient;
 
-                console.log(this.diagnose);
+                //console.log(this.diagnose);
               });
           }
         });
@@ -438,13 +438,15 @@ export default {
       this.diagnose.id_patient = this.paciente;
       this.diagnose.id_doctor = this.doctor;
       axios.post("/historiales", this.diagnose).then((response) => {
-        console.log(this.diagnose);
+        //console.log(this.diagnose);
         if (_.isNumber(response.data.response)) {
           this.showSuccessNotification(
             "Agregando diagnóstico",
             "Información guardada con éxito"
           );
+          this.editid=response.data.response;
           this.sendall(response.data.response);
+          
           if (this.number == 0) {
             this.diagnose = {
               id: null,
@@ -493,7 +495,7 @@ export default {
       this.show = true;
     },
     showchange() {
-      console.log(this.patient);
+      //console.log(this.patient);
     },
     go() {
       window.location = "/pacientes/detalle/" + this.diagnose.patient.id;
@@ -536,10 +538,10 @@ export default {
       fr.addEventListener(
         "load",
         function () {
-          console.log(fr.result);
+        //  //console.log(fr.result);
           let aux = {
             name: file.name,
-            id: x.files.length,
+            id: 0,
             ulr_file: fr.result,
             fileall: file,
             add: 0,
@@ -551,17 +553,19 @@ export default {
     },
     sendall(id) {
       this.files.forEach((value, index) => {
-        if (value.fileall != null && value.add != 2) {
+        if (value.fileall != null && value.add==0 && (value.id==null||value.id==0 )) {
           const params = new FormData();
           params.append("imagen", value.fileall);
           params.append("diagnose", id);
           axios.post("/archivos", params).then((response) => {
-            console.log(response.data);
+           // //console.log(response.data);
             if (_.isNumber(response.data)) {
+              value.id=response.data;
               this.showSuccessNotification(
                 "Agregando archivo",
                 "Archivo guardado con éxito"
               );
+              
             } else {
               this.showErrorNotification(
                 "Agregando archivo",
@@ -570,17 +574,21 @@ export default {
             }
           });
         }
-        if (value.add == 2 && value.id != null && value.fileall == null) {
+        console.log(value);
+       
+        if (value.add == 2 && value.id != null  && value.id!=0) {
           this.deleteImage(value.id);
+           console.log("eliminado");
         }
       });
+      
     },
     // addImage(file) {
     //   const params = new FormData();
     //   params.append("imagen", file);
     //   params.append("diagnose", this.editid);
     //   axios.post("/archivos", params).then((response) => {
-    //     console.log(response.data);
+    //     //console.log(response.data);
     //     if (_.isNumber(response.data)) {
     //       this.showSuccessNotification(
     //         "Agregando archivo",
@@ -609,7 +617,7 @@ export default {
       this.files[$idc].add = 2;
       this.files.push(this.files[0]);
       this.files.splice(this.files.length - 1, 1);
-      console.log(this.files);
+      //console.log(this.files);
       //this.files=[];
       return;
     },
@@ -630,15 +638,17 @@ export default {
           } else {
             this.showSuccessNotification("Eliminar", "Archivo eliminado");
             axios
-              .get(`/historiales/detalleone/${this.editid}`)
-              .then((response) => {
-                this.files = response.data.files;
-              });
+            .get(`/historiales/detalleone/${this.editid}`)
+            .then((response) => {
+              this.files = response.data.files;
+              this.files.forEach((e) => (e.add = -1));
+              
+            });
           }
         })
         .catch((error) => {
           this.showErrorNotification("Error al eliminar", "Conexión inválida");
-          console.log(error);
+          //console.log(error);
         });
     },
     truncate: function (text, length, suffix) {
@@ -653,7 +663,7 @@ export default {
     },
     getImg(name) {
       let substrings = name.split(".");
-      console.log(substrings);
+      //console.log(substrings);
       if (substrings[1] == "pdf") {
         return "../../../../storage/pdf.png";
       }

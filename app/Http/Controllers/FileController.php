@@ -49,7 +49,7 @@ class FileController extends Controller
                 DB::beginTransaction();
                 DB::commit();
                 $file -> save();
-                return 1;
+                return $file->id;
             }
         }
         catch(\Exception $exception){
