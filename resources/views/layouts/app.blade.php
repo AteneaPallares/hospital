@@ -26,7 +26,6 @@
     <!-- import CSS -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- import JavaScript -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/bootstrap_template.css')}}">
     <link rel="stylesheet" href="{{asset('css/fonts/fontawesome-all.min.css')}}">

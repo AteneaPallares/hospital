@@ -574,35 +574,35 @@ export default {
     axios.get("/roles").then((res) => {
       this.roles = res.data;
       console.log(this.roles);
-    });
+      if (this.number != 0) {
+        axios.get(`/usuarios/detalleone/${this.editid}`).then((response) => {
+          console.log(response.data);
 
-    if (this.number != 0) {
-      axios.get(`/usuarios/detalleone/${this.editid}`).then((response) => {
-        console.log(response.data);
-
-        this.user = response.data;
-        this.nuevo = this.user.roles.length > 0 ? this.user.roles[0].id : null;
-        if (this.user.gender == 1) {
-          this.user.gender = "1";
-        } else {
-          this.user.gender = "0";
-        }
-        if (this.user.image == null) {
-          document.getElementById("pic").src = "../../../../storage/drop.png";
-          document.getElementById("deleteImg").style.visibility = "hidden";
-        } else {
-          document.getElementById("pic").src =
-            "../../../../storage/" + this.user.image;
-          if (this.number != 2) {
-            document.getElementById("deleteImg").style.visibility = "visible";
+          this.user = response.data;
+          this.nuevo =
+            this.user.roles.length > 0 ? this.user.roles[0].id : null;
+          if (this.user.gender == 1) {
+            this.user.gender = "1";
+          } else {
+            this.user.gender = "0";
           }
-        }
-      });
-    }
-    if (this.user.image == null) {
-      document.getElementById("pic").src = "../../../../storage/drop.png";
-      document.getElementById("deleteImg").style.visibility = "hidden";
-    }
+          if (this.user.image == null) {
+            document.getElementById("pic").src = "../../../../storage/drop.png";
+            document.getElementById("deleteImg").style.visibility = "hidden";
+          } else {
+            document.getElementById("pic").src =
+              "../../../../storage/" + this.user.image;
+            if (this.number != 2) {
+              document.getElementById("deleteImg").style.visibility = "visible";
+            }
+          }
+        });
+      }
+      if (this.user.image == null) {
+        document.getElementById("pic").src = "../../../../storage/drop.png";
+        document.getElementById("deleteImg").style.visibility = "hidden";
+      }
+    });
   },
   methods: {
     validate() {

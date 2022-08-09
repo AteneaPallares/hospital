@@ -158,7 +158,12 @@
                             <span class="">{{actual+1}} de {{max}}</span>
                             <button class="btn btn-default p-0 ml-1" @click="Prev(1)" :disabled="actual+1==max"><i class="el-icon-arrow-right"></i></button> -->
         <nav
-          class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers"
+          class="
+            d-lg-flex
+            justify-content-lg-end
+            dataTables_paginate
+            paging_simple_numbers
+          "
         >
           <ul class="pagination">
             <li class="page-item" v-if="actual + 1 > 1">
@@ -271,7 +276,9 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.disease, this.search)) {
             this.aux.push(value);
-          } else if (this.foundIt(this.getDate(value.updated_at), this.search)) {
+          } else if (
+            this.foundIt(this.getDate(value.updated_at), this.search)
+          ) {
             this.aux.push(value);
           }
         });
@@ -346,7 +353,10 @@ export default {
                   "El diagnóstico se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification("Eliminar", "Diagnóstico eliminado");
+                this.showSuccessNotification(
+                  "Eliminar",
+                  "Diagnóstico eliminado"
+                );
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
                 axios.get("/" + this.urlactive + "/").then((res) => {
@@ -387,7 +397,7 @@ export default {
       });
     },
     add() {
-      window.location.href = "/historiales/agregar/"+this.detailsid;
+      window.location.href = "/historiales/agregar/" + this.detailsid;
     },
     getDate(dat) {
       var d = new Date();

@@ -207,10 +207,11 @@ class UserController extends Controller
                 if ($user -> image != null) {
                     Storage:: delete ('public/'.$user -> image);
                 }
+                $user->roles()->detach();
                 $user->delete();
                 return 1;
             }catch(\Illuminate\Database\QueryException $e){
-                return 0;
+                return $e;
             }
             
         }

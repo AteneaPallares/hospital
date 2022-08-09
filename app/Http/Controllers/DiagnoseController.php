@@ -141,6 +141,12 @@ class DiagnoseController extends Controller
         if(request()->isMethod("DELETE")){
             try{
                 $diagnose=Diagnose::findOrFail($id);
+                foreach($diagnose->files as $one){
+                    if ($one -> image != null) {
+                        Storage:: delete ('public/'.$file -> ulr_file);
+                    }
+                }
+                $diagnose->files()->delete();
                 $diagnose->delete();
                 return 1;
             }catch(\Illuminate\Database\QueryException $e){

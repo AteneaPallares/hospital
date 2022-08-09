@@ -53,6 +53,17 @@
                         class="text-primary el-icon-caret-bottom"
                       />
                     </th>
+                    <th @click="sort(4)">
+                      Paciente
+                      <i
+                        v-if="this.searchfield == 4 && this.asc == false"
+                        class="text-success el-icon-caret-top"
+                      />
+                      <i
+                        v-if="this.searchfield == 4 && this.asc == true"
+                        class="text-primary el-icon-caret-bottom"
+                      />
+                    </th>
                     <th @click="sort(5)">
                       Fecha
                       <i
@@ -81,6 +92,9 @@
                       {{ props.disease }}
                     </td>
                     <td>
+                      {{ props.patient != null ? props.patient.name : "" }}
+                    </td>
+                    <td>
                       {{ getDate(props.updated_at) }}
                     </td>
                     <td class="m-0 p-0 w-10">
@@ -93,7 +107,12 @@
                         </button>
 
                         <button
-                          class="btn btn-secondary m-1 col-xl-3 col-xs-12 border-dark"
+                          class="
+                            btn btn-secondary
+                            m-1
+                            col-xl-3 col-xs-12
+                            border-dark
+                          "
                           @click="onClickEdit(props.id)"
                         >
                           <i class="el-icon-edit"></i>
@@ -141,7 +160,18 @@
                         class="text-primary el-icon-caret-bottom"
                       />
                     </th>
-                    <th @click="sort(3)">
+                    <th @click="sort(4)">
+                      Paciente
+                      <i
+                        v-if="this.searchfield == 4 && this.asc == false"
+                        class="text-success el-icon-caret-top"
+                      />
+                      <i
+                        v-if="this.searchfield == 4 && this.asc == true"
+                        class="text-primary el-icon-caret-bottom"
+                      />
+                    </th>
+                    <th @click="sort(5)">
                       Fecha
                       <i
                         v-if="this.searchfield == 5 && this.asc == false"
@@ -169,7 +199,12 @@
                             <span class="">{{actual+1}} de {{max}}</span>
                             <button class="btn btn-default p-0 ml-1" @click="Prev(1)" :disabled="actual+1==max"><i class="el-icon-arrow-right"></i></button> -->
                 <nav
-                  class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers"
+                  class="
+                    d-lg-flex
+                    justify-content-lg-end
+                    dataTables_paginate
+                    paging_simple_numbers
+                  "
                 >
                   <ul class="pagination">
                     <li class="page-item" v-if="actual + 1 > 1">
@@ -300,6 +335,8 @@ export default {
             this.aux.push(value);
           } else if (this.foundIt(value.disease, this.search)) {
             this.aux.push(value);
+          } else if (this.foundIt(value.patient.name, this.search)) {
+            this.aux.push(value);
           } else if (
             this.foundIt(this.getDate(value.updated_at), this.search)
           ) {
@@ -329,7 +366,21 @@ export default {
             a.disease > b.disease ? -1 : Number(a.disease < b.disease)
           );
         }
-      } else if ($op == 3) {
+      } else if ($op == 4) {
+        if (this.asc) {
+          this.aux.sort((a, b) =>
+            a.patient.name < b.patient.name
+              ? -1
+              : Number(a.patient.name > b.patient.name)
+          );
+        } else {
+          this.aux.sort((a, b) =>
+            a.patient.name > b.patient.name
+              ? -1
+              : Number(a.patient.name < b.patient.name)
+          );
+        }
+      } else if ($op == 5) {
         if (this.asc) {
           this.aux.sort((a, b) =>
             a.update_at < b.update_at ? -1 : Number(a.update_at > b.update_at)
@@ -377,10 +428,13 @@ export default {
                   "El diagnóstico se encuentra asignado"
                 );
               } else {
-                this.showSuccessNotification("Eliminar", "Diagnóstico eliminado");
+                this.showSuccessNotification(
+                  "Eliminar",
+                  "Diagnóstico eliminado"
+                );
                 var index = this.aux.findIndex((i) => i.id === $idc);
                 if (index != -1) this.aux.splice(index, 1);
-                axios.get("/" + this.urlactive + "/").then((res) => {
+                axios.get("/historiales/all").then((res) => {
                   this.content = res.data;
                 });
                 this.max = Math.ceil(this.aux.length / this.pagesize);
@@ -420,13 +474,14 @@ export default {
     add() {
       window.location.href = "/historiales/agregar";
     },
+
     getDate(dat) {
-      var d = new Date();
+      var d = new Date(dat);
       var datestring =
         ("0" + d.getDate()).slice(-2) +
-        "-" +
+        "/" +
         ("0" + (d.getMonth() + 1)).slice(-2) +
-        "-" +
+        "/" +
         d.getFullYear() +
         " " +
         ("0" + d.getHours()).slice(-2) +

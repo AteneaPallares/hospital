@@ -264,7 +264,7 @@
                     ></textarea>
                   </div>
                 </form>
-                <div v-if="this.editid!=null">
+                <div>
                   <br />
                   <strong>Archivos</strong>
                   <br />
@@ -301,31 +301,33 @@
                       class="row"
                     >
                       <div
-                        v-for="props in files"
-                        v-bind:key="props.id"
-                        class="col-xs-6 m-3"
+                        v-for="(props, index) in files"
+                        v-bind:key="index"
+                        v-bind:class="props.add == 2 ? 'm-0' : 'm-3'"
                       >
-                        <img
-                          width="50px"
-                          height="70px"
-                          :src="getImg(props.name)"
-                          :alt="props.name"
-                        />
-                        <br />
-                        <a
-                          :href="geturl(props.ulr_file)"
-                          target="_blank"
-                          alt="hoal"
-                          >{{ truncate(props.name, 15, "...") }}</a
-                        >
-                        <br />
-                        <el-button
-                          v-if="number != 2"
-                          type="danger"
-                          @click="deleteImage(props.id)"
-                          plain
-                          >Eliminar</el-button
-                        >
+                        <div v-if="props.add != 2">
+                          <img
+                            width="50px"
+                            height="70px"
+                            :src="getImg(props.name)"
+                            :alt="props.name"
+                          />
+                          <br />
+                          <a
+                            :href="geturl(props.ulr_file)"
+                            target="_blank"
+                            alt="hoal"
+                            >{{ truncate(props.name, 15, "...") }}</a
+                          >
+                          <br />
+                          <el-button
+                            v-if="number != 2"
+                            type="danger"
+                            @click="deleteOne(index)"
+                            plain
+                            >Eliminar</el-button
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -353,9 +355,11 @@ export default {
       doctores: [],
       files: [],
       array: [],
+      showfiles: [],
       isDragging: false,
       dragCount: 0,
       images: [],
+      deletefile: [],
       loggeduser: [],
       diagnose: {
         id: null,
@@ -372,47 +376,55 @@ export default {
   mounted() {
     axios.get("/pacientes/all").then((response) => {
       this.pacientes = response.data;
-      console.log(response.data);
-    });
-    axios.get("/usuarios/all").then((response) => {
-      this.doctores = response.data;
-      console.log(response.data);
-    });
-    axios.get("/usuarios/actual").then((response) => {
-      this.loggeduser = response.data;
-      console.log(response.data);
-      this.doctor = this.loggeduser.id;
-      console.log(this.doctor);
-    });
-    if (this.number == 3) {
-      axios.get(`/pacientes/detalleone/${this.editid}`).then((response) => {
-        this.diagnose.patient = response.data;
+      //console.log(response.data);
+      axios.get("/usuarios/all").then((response) => {
+        this.doctores = response.data;
+        //console.log(response.data);
+        axios.get("/usuarios/actual").then((response) => {
+          this.loggeduser = response.data;
+          //console.log(response.data);
+          this.doctor = this.loggeduser.id;
+          //console.log(this.doctor);
+          if (this.number == 3) {
+            axios
+              .get(`/pacientes/detalleone/${this.editid}`)
+              .then((response) => {
+                this.diagnose.patient = response.data;
 
-        if (this.diagnose.patient.image == null) {
-          document.getElementById("pic").src = "../../../../storage/drop.png";
-        } else {
-          document.getElementById("pic").src =
-            "../../../../storage/" + this.diagnose.patient.image;
-        }
-        this.paciente = this.editid;
-      });
-    }
-    if (this.number != 0 && this.number != 3) {
-      axios.get(`/historiales/detalleone/${this.editid}`).then((response) => {
-        this.diagnose = response.data;
-        this.files = this.diagnose.files;
-        if (this.diagnose.patient.image == null) {
-          document.getElementById("pic").src = "../../../../storage/drop.png";
-        } else {
-          document.getElementById("pic").src =
-            "../../../../storage/" + this.diagnose.patient.image;
-        }
-        this.doctor = this.diagnose.id_doctor;
-        this.paciente = this.diagnose.id_patient;
+                if (this.diagnose.patient.image == null) {
+                  document.getElementById("pic").src =
+                    "../../../../storage/drop.png";
+                } else {
+                  document.getElementById("pic").src =
+                    "../../../../storage/" + this.diagnose.patient.image;
+                }
+                this.paciente = this.editid;
+              });
+          }
+          if (this.number != 0 && this.number != 3) {
+            axios
+              .get(`/historiales/detalleone/${this.editid}`)
+              .then((response) => {
+                this.diagnose = response.data;
+                this.files = this.diagnose.files;
+                this.files.forEach((e) => (e.add = -1));
+                this.showfiles = this.files;
+                if (this.diagnose.patient.image == null) {
+                  document.getElementById("pic").src =
+                    "../../../../storage/drop.png";
+                } else {
+                  document.getElementById("pic").src =
+                    "../../../../storage/" + this.diagnose.patient.image;
+                }
+                this.doctor = this.diagnose.id_doctor;
+                this.paciente = this.diagnose.id_patient;
 
-        console.log(this.diagnose);
+                //console.log(this.diagnose);
+              });
+          }
+        });
       });
-    }
+    });
   },
   methods: {
     edit() {
@@ -426,12 +438,33 @@ export default {
       this.diagnose.id_patient = this.paciente;
       this.diagnose.id_doctor = this.doctor;
       axios.post("/historiales", this.diagnose).then((response) => {
-        console.log(this.diagnose);
+        //console.log(this.diagnose);
         if (_.isNumber(response.data.response)) {
           this.showSuccessNotification(
             "Agregando diagnóstico",
             "Información guardada con éxito"
           );
+          this.editid=response.data.response;
+          this.sendall(response.data.response);
+          
+          if (this.number == 0) {
+            this.diagnose = {
+              id: null,
+              id_patient: null,
+              id_doctor: null,
+              disease: null,
+              description: null,
+              weight: null,
+              notes: null,
+              drugs: null,
+            };
+            this.paciente = null;
+            this.doctor = this.loggeduser.id;
+            this.files = [];
+          }
+          if (this.number == 3) {
+            this.send(this.paciente);
+          }
         } else {
           this.showErrorNotification("Agregando diagnóstico", response.data);
           return;
@@ -462,7 +495,7 @@ export default {
       this.show = true;
     },
     showchange() {
-      console.log(this.patient);
+      //console.log(this.patient);
     },
     go() {
       window.location = "/pacientes/detalle/" + this.diagnose.patient.id;
@@ -499,67 +532,123 @@ export default {
       document.getElementById("customFile").value = "";
     },
     addImage(file) {
-      const params = new FormData();
-      params.append("imagen", file);
-      params.append("diagnose", this.editid);
-      axios.post("/archivos", params).then((response) => {
-        console.log(response.data);
-        if (_.isNumber(response.data)) {
-          this.showSuccessNotification(
-            "Agregando archivo",
-            "Archivo guardado con éxito"
-          );
-          axios
+      var fr = new FileReader();
+      var x = this;
+      fr.readAsDataURL(file);
+      fr.addEventListener(
+        "load",
+        function () {
+        //  //console.log(fr.result);
+          let aux = {
+            name: file.name,
+            id: 0,
+            ulr_file: fr.result,
+            fileall: file,
+            add: 0,
+          };
+          x.files.push(aux);
+        },
+        false
+      );
+    },
+    sendall(id) {
+      this.files.forEach((value, index) => {
+        if (value.fileall != null && value.add==0 && (value.id==null||value.id==0 )) {
+          const params = new FormData();
+          params.append("imagen", value.fileall);
+          params.append("diagnose", id);
+          axios.post("/archivos", params).then((response) => {
+           // //console.log(response.data);
+            if (_.isNumber(response.data)) {
+              value.id=response.data;
+              this.showSuccessNotification(
+                "Agregando archivo",
+                "Archivo guardado con éxito"
+              );
+              
+            } else {
+              this.showErrorNotification(
+                "Agregando archivo",
+                "Archivo demasiado pesado"
+              );
+            }
+          });
+        }
+        console.log(value);
+       
+        if (value.add == 2 && value.id != null  && value.id!=0) {
+          this.deleteImage(value.id);
+           console.log("eliminado");
+        }
+      });
+      
+    },
+    // addImage(file) {
+    //   const params = new FormData();
+    //   params.append("imagen", file);
+    //   params.append("diagnose", this.editid);
+    //   axios.post("/archivos", params).then((response) => {
+    //     //console.log(response.data);
+    //     if (_.isNumber(response.data)) {
+    //       this.showSuccessNotification(
+    //         "Agregando archivo",
+    //         "Archivo guardado con éxito"
+    //       );
+    //       axios
+    //         .get(`/historiales/detalleone/${this.editid}`)
+    //         .then((response) => {
+    //           this.files = response.data.files;
+    //         });
+    //     } else {
+    //       this.showErrorNotification(
+    //         "Agregando archivo",
+    //         "Archivo demasiado pesado"
+    //       );
+    //     }
+    //   });
+    // },
+    deleteOne($idc) {
+      // this.deletefile.push(this.files);
+      // var index = this.files.findIndex((i) => i.id === $idc);
+      //if ($idc != -1) this.files.splice($idc, 1);
+      // let x=this.files;
+      //.showfiles=this.files;
+      //this.showfiles[$idc].add=2;
+      this.files[$idc].add = 2;
+      this.files.push(this.files[0]);
+      this.files.splice(this.files.length - 1, 1);
+      //console.log(this.files);
+      //this.files=[];
+      return;
+    },
+    deleteImage($idc) {
+      // // this.deletefile.push(this.files);
+      // // var index = this.files.findIndex((i) => i.id === $idc);
+      // //if ($idc != -1) this.files.splice($idc, 1);
+      // this.files[$idc].add = 2;
+      // return;
+      axios
+        .delete(`/archivos/${$idc}`)
+        .then((response) => {
+          if (response.data != 1) {
+            this.showErrorNotification(
+              "Error al eliminar",
+              "Revise la conexión"
+            );
+          } else {
+            this.showSuccessNotification("Eliminar", "Archivo eliminado");
+            axios
             .get(`/historiales/detalleone/${this.editid}`)
             .then((response) => {
               this.files = response.data.files;
+              this.files.forEach((e) => (e.add = -1));
+              
             });
-        } else {
-          this.showErrorNotification(
-            "Agregando archivo",
-            "Archivo demasiado pesado"
-          );
-        }
-      });
-    },
-    deleteImage($idc) {
-      this.$confirm("Realmente desea eliminar el archivo", "Alerta", {
-        confirmButtonText: "Continuar",
-        cancelButtonText: "Cancelar",
-        type: "warning",
-      })
-        .then(() => {
-          axios
-            .delete(`/archivos/${$idc}`)
-            .then((response) => {
-              if (response.data != 1) {
-                this.showErrorNotification(
-                  "Error al eliminar",
-                  "Revise la conexión"
-                );
-              } else {
-                this.showSuccessNotification("Eliminar", "Archivo eliminado");
-                axios
-                  .get(`/historiales/detalleone/${this.editid}`)
-                  .then((response) => {
-                    this.files = response.data.files;
-                  });
-              }
-            })
-            .catch((error) => {
-              this.showErrorNotification(
-                "Error al eliminar",
-                "Conexión inválida"
-              );
-              console.log(error);
-            });
+          }
         })
-        .catch(() => {
-          this.$notify({
-            type: "info",
-            title: "Eliminación cancelada",
-            message: "La eliminación ha sido cancelada",
-          });
+        .catch((error) => {
+          this.showErrorNotification("Error al eliminar", "Conexión inválida");
+          //console.log(error);
         });
     },
     truncate: function (text, length, suffix) {
@@ -569,22 +658,25 @@ export default {
         return text;
       }
     },
+    send(patientid) {
+      window.location.href = "/pacientes/" + patientid;
+    },
     getImg(name) {
       let substrings = name.split(".");
-      console.log(substrings);
+      //console.log(substrings);
       if (substrings[1] == "pdf") {
-        return "../../../../storage/pdf.jpg";
+        return "../../../../storage/pdf.png";
       }
       if (substrings[1] == "docx" || substrings[1] == "doc") {
-        return "../../../../storage/doc.jpg";
+        return "../../../../storage/doc.png";
       }
       if (substrings[1] == "png" || substrings[1] == "jpg") {
-        return "../../../../storage/img.jpg";
+        return "../../../../storage/img.png";
       }
       if (substrings[1] == "mp3" || substrings[1] == "m4a") {
-        return "../../../../storage/mp3.jpg";
+        return "../../../../storage/mp3.png";
       }
-      return "../../../../storage/all.jpg";
+      return "../../../../storage/all.png";
     },
   },
 };

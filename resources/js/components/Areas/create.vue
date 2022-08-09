@@ -53,12 +53,12 @@
                     >Editar</el-button
                   >
                 </div>
-                <br/>
+                <br />
                 <form>
                   <div class="row justify-content-left m-0 p-0">
                     <div class="col-12 m-0 p-0 text-left">
                       <strong>Nombre</strong>
-                      <br/><br/>
+                      <br /><br />
                       <div class="w-100">
                         <input
                           :disabled="number == 2"
@@ -71,11 +71,11 @@
                         />
                       </div>
                     </div>
-                    <br/><br/>
+                    <br /><br />
                     <div class="col-12 m-0 p-0 text-left">
-                      <br/>
+                      <br />
                       <strong>Lugar</strong>
-                      <br/><br/>
+                      <br /><br />
                       <div class="w-100">
                         <input
                           type="text"
@@ -124,6 +124,21 @@ export default {
   methods: {
     edit() {
       console.log(this.area);
+      if (this.area.place == null || this.area.name == null) {
+        this.showErrorNotification("Agregando área", "Llene todos los campos");
+        return;
+      }
+      this.area.place = this.area.place.trim();
+      this.area.name = this.area.name.trim();
+      if (
+        this.area.place == null ||
+        this.area.place == "" ||
+        this.area.name == null ||
+        this.area.name == ""
+      ) {
+        this.showErrorNotification("Agregando área", "Llene todos los campos");
+        return;
+      }
 
       axios.post("/areas", this.area).then((response) => {
         if (_.isNumber(response.data.response)) {
@@ -132,6 +147,13 @@ export default {
             "Agregando área",
             "Información guardada con éxito"
           );
+          if (this.number == 0) {
+            this.area = {
+              id: null,
+              place: null,
+              name: null,
+            };
+          }
         } else {
           this.showErrorNotification("Agregando área", response.data);
           return;

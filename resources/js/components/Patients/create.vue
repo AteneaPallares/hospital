@@ -362,7 +362,7 @@
               </div>
             </div>
           </div>
-          <div  v-if="number!=0" class="container-fluid mt-5">
+          <div v-if="number != 0" class="container-fluid mt-5">
             <div id="" class="card shadow mb-5">
               <div class="m-0'">
                 <div class="card-header py-3">
@@ -682,11 +682,13 @@ label.label input[type="button"] {
 .label:invalid + span {
   color: #000000;
 }
-input[readonly], input[readonly="readonly"] {
-    background-color: rgb(248, 247, 247);
+input[readonly],
+input[readonly="readonly"] {
+  background-color: rgb(248, 247, 247);
 }
-textarea[readonly="readonly"], textarea[readonly] {
-background-color: rgb(248, 247, 247);
+textarea[readonly="readonly"],
+textarea[readonly] {
+  background-color: rgb(248, 247, 247);
 }
 .label:valid + span {
   color: #ffffff;

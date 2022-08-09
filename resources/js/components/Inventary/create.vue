@@ -145,6 +145,14 @@ export default {
       .then((res) => {
         this.areas = res.data;
         console.log(this.areas);
+        if (this.number != 0) {
+          axios
+            .get(`/inventario/detalleone/${this.editid}`)
+            .then((response) => {
+              this.inventary = response.data;
+              this.area = this.inventary.id_area;
+            });
+        }
       })
       .catch((error) => {
         this.showErrorNotification(
@@ -153,19 +161,20 @@ export default {
         );
         console.log(error);
       });
-    if (this.number != 0) {
-      axios.get(`/inventario/detalleone/${this.editid}`).then((response) => {
-        this.inventary = response.data;
-        this.area=this.inventary.id_area;
-      });
-    }
   },
   methods: {
     edit() {
       console.log(this.inventary);
-      this.inventary.id_area=this.area;
-      if(this.inventary.name==null||this.inventary.quantity==null||this.inventary.id_area==null){
-        this.showErrorNotification("Agregar inventario","Ingrese todos los campos");
+      this.inventary.id_area = this.area;
+      if (
+        this.inventary.name == null ||
+        this.inventary.quantity == null ||
+        this.inventary.id_area == null
+      ) {
+        this.showErrorNotification(
+          "Agregar inventario",
+          "Ingrese todos los campos"
+        );
         return;
       }
       axios.post("/inventario", this.inventary).then((response) => {
@@ -175,6 +184,15 @@ export default {
             "Agregando artículo",
             "Información guardada con éxito"
           );
+          if (this.number == 0) {
+            this.inventary = {
+              id: null,
+              quantity: null,
+              name: null,
+              id_area: null,
+            };
+            this.area = null;
+          }
         } else {
           this.showErrorNotification("Agregando artículo", response.data);
           return;
